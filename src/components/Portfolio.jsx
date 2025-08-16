@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import {
   Github,
@@ -12,10 +13,59 @@ import {
   Clock,
   Star,
   Search,
+  MapPin,
 } from "lucide-react";
+
+/**
+ * @typedef {{label: string; url: string}} LinkRef
+ */
+
+/**
+ * @typedef {Object} PeriodObj
+ * @property {string} start  // e.g., "2022-02"
+ * @property {string} end    // e.g., "2024-07" or "Present"
+ */
+
+/**
+ * @typedef {Object} Project
+ * @property {string} title
+ * @property {string} role
+ * @property {string|PeriodObj} period
+ * @property {string} summary
+ * @property {string[]} stack
+ * @property {string[]=} highlights
+ * @property {LinkRef[]=} links
+ */
+
+/**
+ * @typedef {Object} Experience
+ * @property {string} company
+ * @property {string} role
+ * @property {string|PeriodObj} period
+ * @property {string} location
+ * @property {string[]=} bullets
+ */
+
+/**
+ * @typedef {Object} Education
+ * @property {string} degree
+ * @property {string} school
+ * @property {string} period
+ * @property {string} location
+ */
+
+// ------------------- PROFILE -------------------
+const PROFILE = {
+  name: "Syed Zia ur Rehman",
+  title: "Mobile Tech Lead | iOS & Flutter Specialist | Product Architect",
+  location: "Islamabad, Pakistan",
+  // Uses your GitHub avatar. Replace with your own image path if preferred (e.g., "/profile.jpg").
+  photoUrl: "https://github.com/iexpertapps.png",
+};
 
 // ------------------- DATA SEEDS -------------------
 
+/** @type {Project[]} */
 const projectsSeed = [
   {
     title: "Testora – Smart Home IoT Integration (Tuya SDK)",
@@ -34,13 +84,9 @@ const projectsSeed = [
       "Configured push notifications for device alerts and automation triggers"
     ],
     links: [
-      {
-        label: "Tuya SDK Docs",
-        url: "https://platform.tuya.com/oem/sdk?id=644256001&tab=1#1"
-      }
+      { label: "Tuya SDK Docs", url: "https://platform.tuya.com/oem/sdk?id=644256001&tab=1#1" }
     ],
   },
-
   {
     title: "Cielo Home – Smart IoT HVAC Control",
     role: "Senior iOS Engineer",
@@ -56,12 +102,9 @@ const projectsSeed = [
       "Enhanced security by migrating away from social logins to compliant authentication"
     ],
     links: [
-      {
-        label: "App Store",
-        url: "https://apps.apple.com/us/app/cielo-home/id1030282555"
-      }
+      { label: "App Store", url: "https://apps.apple.com/us/app/cielo-home/id1030282555" }
     ],
-  }, 
+  },
   {
     title: "XP Eats – Food Delivery & Donation Platform",
     role: "iOS Developer",
@@ -77,10 +120,7 @@ const projectsSeed = [
       "Optimized UI/UX for seamless food ordering and donor-recipient flows"
     ],
     links: [
-      {
-        label: "App Store",
-        url: "https://apps.apple.com/ca/app/xp-eats/id1498829228"
-      }
+      { label: "App Store", url: "https://apps.apple.com/ca/app/xp-eats/id1498829228" }
     ],
   },
   {
@@ -98,19 +138,17 @@ const projectsSeed = [
       "Optimized background location tracking for battery efficiency"
     ],
     links: [
-      {
-        label: "App Store",
-        url: "https://apps.apple.com/ca/app/xp-driver/id1439220195"
-      }
+      { label: "App Store", url: "https://apps.apple.com/ca/app/xp-driver/id1439220195" }
     ],
   },
 ];
 
-const personalProjects = [ 
+/** @type {Project[]} */
+const personalProjects = [
   {
     title: "Mawaddah – Spiritual Tech Charity Platform",
     role: "Founder | System Architect | Flutter & iOS Developer",
-    period: "Jul 2025 – Present",
+    period: { start: "2025-07", end: "Present" },
     summary:
       "Purpose-built platform for Syed donors to support verified Sadaat recipients with privacy and dignity. MVP complete, backend/frontend integrated, launching Phase 2 enhancements.",
     stack: ["Flutter", "Django REST API", "React", "Stripe", "JazzCash", "Easypaisa"],
@@ -119,17 +157,12 @@ const personalProjects = [
       "Role-based access & wallet-based donation logic",
       "Fully documented SDLC: SRS, user flows, API specs, layered backend, DevOps pipelines",
     ],
-    links: [
-      {
-        label: "Mawaddah Admin Panel",
-        url: "https://mawaddahapp.vercel.app/login"
-      }
-    ],
+    links: [{ label: "Mawaddah Admin Panel", url: "https://mawaddahapp.vercel.app/login" }],
   },
   {
     title: "QuietHelp – Mental Health App",
     role: "Founder & iOS Developer",
-    period: "Jan 2025 – Jun 2025",
+    period: { start: "2025-01", end: "2025-06" },
     summary:
       "SwiftUI-based app offering anonymous help for trauma, abuse, and addiction with trauma-aware UX, panic exits, zero data retention, Firebase backend.",
     stack: ["SwiftUI", "Firebase", "WebSocket"],
@@ -141,51 +174,41 @@ const personalProjects = [
     links: [],
   },
   {
-  title: "KaamWalay – Job & Service Marketplace",
-  role: "Founder | System Architect | iOS & Flutter Developer",
-  period: "Jan 2023 – Jun 2024",
-  summary:
-    "Developed a mobile-first marketplace connecting job seekers, freelancers, and service providers with employers and clients. The platform streamlined onboarding, verified profiles, and secure payments for trust and transparency.",
-  stack: ["Flutter", "Laravel", "MySQL", "Stripe", "Firebase", "REST APIs"],
-  highlights: [
-    "Implemented secure user onboarding with role-based access (Employer, Worker, Admin)",
-    "Integrated Stripe & local wallets for service payments and job transactions",
-    "Developed job posting, bidding, and hiring workflows with proof-of-completion",
-    "Built real-time chat & notification system for job updates and employer-worker communication",
-    "Optimized UX for multi-language support and inclusive accessibility"
-  ],
-  links: [
-    {
-      label: "Admin Panel",
-      url: "https://kaamwalay-admin.vercel.app/login"
-    }
-  ],
-},
-{
-  title: "SkillQuest – AI-Powered Career Success Platform",
-  role: "Founder | Product Architect | iOS & AI Solutions Developer",
-  period: "Jan 2024 – Present",
-  summary:
-    "An end-to-end career acceleration platform leveraging AI for personalized skill development, interview preparation, and intelligent job matching. Designed to empower job seekers, employers, and educators with actionable insights and scalable tools.",
-  stack: ["React", "Node.js", "Python (AI/ML)", "Firebase", "OpenAI APIs", "REST APIs"],
-  highlights: [
-    "AI-driven interview preparation with personalized role-specific questions & real-time feedback",
-    "Adaptive skill assessments with dynamic quizzes and gap analysis for upskilling",
-    "Smart job matching via unified job aggregator, readiness scoring, and salary insights",
-    "Virtual mock interviews with multimodal feedback on verbal & non-verbal cues",
-    "Skill enhancement hub with curated learning paths and live expert sessions",
-    "Collaborative community features: peer networking, forums, and group mock interviews"
-  ],
-  links: [
-    {
-      label: "SkillQuest Web Platform",
-      url: "https://skillquest.ai"
-    }
-  ],
-},
-
+    title: "KaamWalay – Job & Service Marketplace",
+    role: "Founder | System Architect | iOS & Flutter Developer",
+    period: { start: "2023-01", end: "2024-06" },
+    summary:
+      "Developed a mobile-first marketplace connecting job seekers, freelancers, and service providers with employers and clients. The platform streamlined onboarding, verified profiles, and secure payments for trust and transparency.",
+    stack: ["Flutter", "Laravel", "MySQL", "Stripe", "Firebase", "REST APIs"],
+    highlights: [
+      "Implemented secure user onboarding with role-based access (Employer, Worker, Admin)",
+      "Integrated Stripe & local wallets for service payments and job transactions",
+      "Developed job posting, bidding, and hiring workflows with proof-of-completion",
+      "Built real-time chat & notification system for job updates and employer-worker communication",
+      "Optimized UX for multi-language support and inclusive accessibility"
+    ],
+    links: [{ label: "Admin Panel", url: "https://kaamwalay-admin.vercel.app/login" }],
+  },
+  {
+    title: "SkillQuest – AI-Powered Career Success Platform",
+    role: "Founder | Product Architect | iOS & AI Solutions Developer",
+    period: { start: "2024-01", end: "Present" },
+    summary:
+      "An end-to-end career acceleration platform leveraging AI for personalized skill development, interview preparation, and intelligent job matching. Designed to empower job seekers, employers, and educators with actionable insights and scalable tools.",
+    stack: ["React", "Node.js", "Python (AI/ML)", "Firebase", "OpenAI APIs", "REST APIs"],
+    highlights: [
+      "AI-driven interview preparation with personalized role-specific questions & real-time feedback",
+      "Adaptive skill assessments with dynamic quizzes and gap analysis for upskilling",
+      "Smart job matching via unified job aggregator, readiness scoring, and salary insights",
+      "Virtual mock interviews with multimodal feedback on verbal & non-verbal cues",
+      "Skill enhancement hub with curated learning paths and live expert sessions",
+      "Collaborative community features: peer networking, forums, and group mock interviews"
+    ],
+    links: [{ label: "SkillQuest Web Platform", url: "https://skillquest.ai" }],
+  },
 ];
 
+/** @type {Experience[]} */
 const experienceSeed = [
   {
     company: "iExpert Apps",
@@ -253,6 +276,7 @@ const experienceSeed = [
   },
 ];
 
+/** @type {Education[]} */
 const educationSeed = [
   {
     degree: "Bachelor of Science - BS Software Engineering, Computer Science",
@@ -284,22 +308,50 @@ const socials = [
   { label: "Phone", href: "tel:+923347134557", icon: Phone },
 ];
 
-// ------------------- REUSABLE COMPONENTS -------------------
+// ------------------- HELPERS (Single-file) -------------------
 
-function Badge({ children }) {
-  return <span className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium">{children}</span>;
+/** @param {string|PeriodObj} p */
+function formatPeriod(p) {
+  if (typeof p === "string") return p;
+  const end = p.end === "Present" ? "Present" : ymToMonYear(p.end);
+  return `${ymToMonYear(p.start)} – ${end}`;
 }
 
-function Pill({ children }) {
-  return <span className="inline-flex items-center rounded-2xl bg-muted px-3 py-1 text-xs">{children}</span>;
+function ymToMonYear(ym) {
+  // "2024-07" -> "Jul 2024"
+  const [y, m] = ym.split("-").map(Number);
+  const d = new Date(y, (m || 1) - 1, 1);
+  return d.toLocaleString(undefined, { month: "short", year: "numeric" });
+}
+
+/** Simple debounce hook */
+function useDebouncedValue(value, delayMs) {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const t = setTimeout(() => setDebounced(value), delayMs);
+    return () => clearTimeout(t);
+  }, [value, delayMs]);
+  return debounced;
+}
+
+// ------------------- REUSABLE COMPONENTS -------------------
+
+function Tag({ children, variant = "badge" }) {
+  const styles =
+    variant === "pill"
+      ? "rounded-2xl bg-muted px-3 py-1 text-xs"
+      : "rounded-full border px-3 py-1 text-xs font-medium";
+  return <span className={`inline-flex items-center ${styles}`}>{children}</span>;
 }
 
 function Section({ id, title, icon: Icon, children, className = "" }) {
   return (
-    <section id={id} className={`scroll-mt-24 ${className}`}>
+    <section id={id} className={`scroll-mt-24 ${className}`} aria-labelledby={`${id}-heading`}>
       <div className="mb-6 flex items-center gap-2">
-        {Icon ? <Icon className="h-5 w-5" /> : null}
-        <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+        {Icon ? <Icon className="h-5 w-5" aria-hidden="true" /> : null}
+        <h2 id={`${id}-heading`} className="text-xl font-semibold tracking-tight">
+          {title}
+        </h2>
       </div>
       {children}
     </section>
@@ -321,7 +373,7 @@ function ProjectCard({ project }) {
             <h3 className="text-lg font-semibold">{project.title}</h3>
             <p className="text-sm text-muted-foreground">{project.role}</p>
             <p className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Clock className="h-3.5 w-3.5" /> {project.period}
+              <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {formatPeriod(project.period)}
             </p>
           </div>
         </div>
@@ -331,30 +383,32 @@ function ProjectCard({ project }) {
         {Array.isArray(project.stack) && project.stack.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {project.stack.map((s) => (
-              <Badge key={s}>{s}</Badge>
+              <Tag key={`${project.title}-${s}`}>{s}</Tag>
             ))}
           </div>
         )}
 
         {Array.isArray(project.highlights) && project.highlights.length > 0 && (
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
-            {project.highlights.map((h) => (
-              <li key={h}>{h}</li>
+            {project.highlights.map((h, i) => (
+              <li key={`${project.title}-hl-${i}`}>{h}</li>
             ))}
           </ul>
         )}
 
         {Array.isArray(project.links) && project.links.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-2">
-            {project.links.map((l) => (
+            {project.links.map((l, i) => (
               <a
-                key={`${project.title}-${l.label}-${l.url}`}
+                key={`${project.title}-link-${i}`}
                 href={l.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs hover:bg-muted"
+                aria-label={`${project.title} – ${l.label}`}
+                title={l.label}
               >
-                <LinkIcon className="h-3.5 w-3.5" />
+                <LinkIcon className="h-3.5 w-3.5" aria-hidden="true" />
                 {l.label}
               </a>
             ))}
@@ -365,10 +419,63 @@ function ProjectCard({ project }) {
   );
 }
 
+/** Small helper for empty search states */
+function EmptyState() {
+  return (
+    <div className="rounded-xl border p-6 text-sm text-muted-foreground">
+      No items matched your search/filter. Try a different keyword or tag.
+    </div>
+  );
+}
+
+function ProfileCard() {
+  return (
+    <aside className="flex items-center gap-4 rounded-2xl border p-4 shadow-sm md:flex-col md:items-start">
+      <img
+        src={PROFILE.photoUrl}
+        alt={`${PROFILE.name} profile photo`}
+        width={160}
+        height={160}
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        className="h-20 w-20 rounded-full object-cover ring-2 ring-border md:h-40 md:w-40"
+        referrerPolicy="no-referrer"
+      />
+      <div className="space-y-1">
+        <p className="text-base font-semibold leading-tight">{PROFILE.name}</p>
+        <p className="text-sm text-muted-foreground">{PROFILE.title}</p>
+        <p className="flex items-center gap-1 text-xs text-muted-foreground">
+          <MapPin className="h-3.5 w-3.5" aria-hidden="true" /> {PROFILE.location}
+        </p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {socials.map((s) => {
+            const Icon = s.icon;
+            return (
+              <a
+                key={`profile-social-${s.label}`}
+                href={s.href}
+                target="_blank"
+                rel="me noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-xl border px-2 py-1 text-xs hover:bg-muted"
+                aria-label={s.label}
+                title={s.label}
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" /> {s.label}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </aside>
+  );
+}
+
 // ------------------- MAIN COMPONENT -------------------
 
 export default function Portfolio() {
-  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
+  const query = useDebouncedValue(search, 300);
   const [tag, setTag] = useState("All");
 
   const allTags = useMemo(() => {
@@ -392,11 +499,41 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <Helmet>
+        <title>{`${PROFILE.name} – Portfolio`}</title>
+        <meta
+          name="description"
+          content="Mobile Tech Lead | iOS & Flutter Specialist | Product Architect. Smart IoT, real-time systems, and fintech integrations."
+        />
+        <link rel="preload" as="image" href={PROFILE.photoUrl} />
+        <style>{`html { scroll-behavior: smooth; }`}</style>
+        {/* Basic OG/Twitter */}
+        <meta property="og:title" content={`${PROFILE.name} – Portfolio`} />
+        <meta property="og:description" content="iOS & Flutter Specialist. Smart IoT, real-time, fintech." />
+        <meta property="og:image" content={PROFILE.photoUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        {/* JSON-LD Person schema */}
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: PROFILE.name,
+          jobTitle: PROFILE.title,
+          image: PROFILE.photoUrl,
+          address: { '@type': 'PostalAddress', addressLocality: PROFILE.location },
+          sameAs: socials.map((s) => s.href),
+        })}</script>
+      </Helmet>
+
+      {/* Skip link for accessibility */}
+      <a href="#home" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground">
+        Skip to content
+      </a>
+
       {/* HEADER */}
       <header className="sticky top-0 z-40 border-b backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <a href="#home" className="font-semibold tracking-tight">Syed Zia ur Rehman</a>
-          <nav className="flex items-center gap-5 text-sm">
+          <a href="#home" className="font-semibold tracking-tight">{PROFILE.name}</a>
+          <nav className="flex items-center gap-5 text-sm" aria-label="Primary">
             <a href="#projects" className="hover:underline underline-offset-4">Projects</a>
             <a href="#personal-projects" className="hover:underline underline-offset-4">Personal Projects</a>
             <a href="#experience" className="hover:underline underline-offset-4">Experience</a>
@@ -409,7 +546,7 @@ export default function Portfolio() {
 
       {/* HERO */}
       <main id="home" className="mx-auto max-w-6xl px-4">
-        <section className="grid gap-8 py-14 md:grid-cols-[1.2fr_.8fr] md:items-center">
+        <section className="grid gap-8 py-14 md:grid-cols-[1.2fr_.8fr] md:items-start">
           <div>
             <motion.h1
               initial={{ opacity: 0, y: 8 }}
@@ -417,43 +554,54 @@ export default function Portfolio() {
               transition={{ duration: 0.4 }}
               className="text-3xl font-bold tracking-tight md:text-4xl"
             >
-              Mobile Tech Lead | iOS & Flutter Specialist | Product Architect
+              {PROFILE.title}
             </motion.h1>
             <p className="mt-3 max-w-prose text-muted-foreground">
-              Seasoned mobile technologist with over a decade of experience designing, building, and scaling high-performance iOS and cross-platform applications. Focused on smart IoT ecosystems, real-time systems, fintech integrations, and spiritually-driven digital products.
+              Seasoned mobile technologist with over a decade of experience designing, building, and scaling
+              high-performance iOS and cross-platform applications. Focused on smart IoT ecosystems, real-time systems,
+              fintech integrations, and spiritually-driven digital products.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <a href="#projects" className="rounded-2xl border px-4 py-2 text-sm font-medium hover:shadow">
-                <Rocket className="mr-2 inline h-4 w-4" /> View Projects
+                <Rocket className="mr-2 inline h-4 w-4" aria-hidden="true" /> View Projects
               </a>
-              <a href="#contact" className="rounded-2xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
-                <Mail className="mr-2 inline h-4 w-4" /> Contact
+              <a
+                href="#contact"
+                className="rounded-2xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
+              >
+                <Mail className="mr-2 inline h-4 w-4" aria-hidden="true" /> Contact
               </a>
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Pill>iOS, Android</Pill>
-              <Pill>Flutter</Pill>
-              <Pill>Clean Architecture</Pill>
-              <Pill>Remote-friendly</Pill>
+              <Tag variant="pill">iOS, Android</Tag>
+              <Tag variant="pill">Flutter</Tag>
+              <Tag variant="pill">Clean Architecture</Tag>
+              <Tag variant="pill">Remote-friendly</Tag>
             </div>
           </div>
+
+          {/* Profile Picture + quick actions */}
+          <ProfileCard />
         </section>
 
         {/* FILTER BAR (shared) */}
         <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-2 rounded-xl border px-3 py-2">
-            <Search className="h-4 w-4" />
+            <Search className="h-4 w-4" aria-hidden="true" />
             <input
               className="w-56 bg-transparent text-sm outline-none"
               placeholder="Search projects..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              aria-label="Search projects"
             />
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2" role="tablist" aria-label="Technology filter">
             {allTags.map((t) => (
               <button
-                key={t}
+                key={`tag-${t}`}
+                role="tab"
+                aria-selected={t === tag}
                 className={`rounded-xl border px-3 py-1 text-sm ${t === tag ? "bg-primary text-primary-foreground" : ""}`}
                 onClick={() => setTag(t)}
               >
@@ -467,10 +615,10 @@ export default function Portfolio() {
         <Section id="projects" title="Projects" icon={Rocket}>
           <div className="grid gap-6 md:grid-cols-2">
             {filteredProjects.length > 0 ? (
-              filteredProjects.map((p) => <ProjectCard key={p.title} project={p} />)
+              filteredProjects.map((p) => <ProjectCard key={`proj-${p.title}`} project={p} />)
             ) : (
-              <EmptyState />
-            )}
+              <EmptyState />)
+            }
           </div>
         </Section>
 
@@ -478,18 +626,18 @@ export default function Portfolio() {
         <Section id="personal-projects" title="Personal Projects" icon={Rocket}>
           <div className="grid gap-6 md:grid-cols-2">
             {filteredPersonal.length > 0 ? (
-              filteredPersonal.map((p) => <ProjectCard key={p.title} project={p} />)
+              filteredPersonal.map((p) => <ProjectCard key={`pers-${p.title}`} project={p} />)
             ) : (
-              <EmptyState />
-            )}
+              <EmptyState />)
+            }
           </div>
         </Section>
 
         {/* EXPERIENCE */}
         <Section id="experience" title="Experience" icon={Briefcase}>
-          {experienceSeed.map((exp) => (
+          {experienceSeed.map((exp, i) => (
             <motion.div
-              key={`${exp.company}-${exp.role}-${exp.period}`}
+              key={`exp-${exp.company}-${exp.role}-${i}`}
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -501,12 +649,12 @@ export default function Portfolio() {
                 {exp.company} | {exp.location}
               </p>
               <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                <Clock className="h-3.5 w-3.5" /> {exp.period}
+                <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {formatPeriod(exp.period)}
               </p>
               {exp.bullets?.length > 0 && (
                 <ul className="mt-2 list-disc pl-5 text-sm">
-                  {exp.bullets.map((b) => (
-                    <li key={b}>{b}</li>
+                  {exp.bullets.map((b, j) => (
+                    <li key={`exp-${i}-b-${j}`}>{b}</li>
                   ))}
                 </ul>
               )}
@@ -518,11 +666,11 @@ export default function Portfolio() {
         <Section id="skills" title="Technical Skills" icon={Star}>
           <div className="grid gap-4 md:grid-cols-2">
             {Object.entries(skillsSeed).map(([key, val]) => (
-              <div key={key}>
+              <div key={`skill-${key}`}>
                 <h4 className="text-sm font-medium capitalize">{key.replace(/([A-Z])/g, " $1")}</h4>
                 <div className="mt-1 flex flex-wrap gap-2">
-                  {val.map((s) => (
-                    <Badge key={`${key}-${s}`}>{s}</Badge>
+                  {val.map((s, i) => (
+                    <Tag key={`skill-${key}-${i}`}>{s}</Tag>
                   ))}
                 </div>
               </div>
@@ -532,9 +680,9 @@ export default function Portfolio() {
 
         {/* EDUCATION */}
         <Section id="education" title="Education" icon={GraduationCap}>
-          {educationSeed.map((edu) => (
+          {educationSeed.map((edu, i) => (
             <motion.div
-              key={`${edu.school}-${edu.degree}`}
+              key={`edu-${i}`}
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -557,28 +705,25 @@ export default function Portfolio() {
               const Icon = s.icon;
               return (
                 <a
-                  key={s.label}
+                  key={`social-${s.label}`}
                   href={s.href}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="me noopener noreferrer"
                   className="flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-muted"
+                  aria-label={s.label}
+                  title={s.label}
                 >
-                  <Icon className="h-5 w-5" /> {s.label}
+                  <Icon className="h-5 w-5" aria-hidden="true" /> {s.label}
                 </a>
               );
             })}
           </div>
         </Section>
-      </main>
-    </div>
-  );
-}
 
-/** Small helper for empty search states */
-function EmptyState() {
-  return (
-    <div className="rounded-xl border p-6 text-sm text-muted-foreground">
-      No items matched your search/filter. Try a different keyword or tag.
+        <footer className="my-10 border-t pt-6 text-center text-xs text-muted-foreground">
+          © {new Date().getFullYear()} {PROFILE.name}. All rights reserved.
+        </footer>
+      </main>
     </div>
   );
 }
