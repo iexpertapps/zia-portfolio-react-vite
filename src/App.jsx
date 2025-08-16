@@ -432,7 +432,7 @@ function ProfileCard() {
   return (
     <aside className="flex items-center gap-4 rounded-2xl border p-4 shadow-sm md:flex-col md:items-start">
       <img
-        src={PROFILE.photoUrl}
+       src="./profile.jpg"
         alt={`${PROFILE.name} profile photo`}
         width={160}
         height={160}
