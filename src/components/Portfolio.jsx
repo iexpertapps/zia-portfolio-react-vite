@@ -32,7 +32,7 @@ const PROFILE = {
 const projectsSeed = [
   {
     title: "Testora – Smart Home IoT Integration (Tuya SDK)",
-    role: "iOS Developer",
+    role: "Senior iOS Engineer",
     period: "Aug 2025 – Aug 2025 (1 month)",
     summary:
       "Integrated Tuya Smart Home SDK into the Testora iOS app, enabling IoT device pairing, control, and automation workflows with secure cloud connectivity.",
@@ -70,7 +70,7 @@ const projectsSeed = [
   },
   {
     title: "XP Eats – Food Delivery & Donation Platform",
-    role: "iOS Developer",
+    role: "Senior iOS Engineer",
     period: "Apr 2018 – Jan 2020 (1 year 10 months)",
     summary:
       "Built XP Eats iOS app enabling food ordering, targeted donations, and real-time delivery tracking with a smooth and secure user experience.",
@@ -88,7 +88,7 @@ const projectsSeed = [
   },
   {
     title: "XP Driver – Driver App for XP Eats Platform",
-    role: "iOS Developer",
+    role: "Senior iOS Engineer",
     period: "Apr 2018 – Jan 2020 (1 year 10 months)",
     summary:
       "Developed XP Driver iOS app enabling drivers to receive ride/delivery requests, navigate routes, and communicate securely with recipients in real-time.",
