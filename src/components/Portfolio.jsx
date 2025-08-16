@@ -16,43 +16,6 @@ import {
   MapPin,
 } from "lucide-react";
 
-/**
- * @typedef {{label: string; url: string}} LinkRef
- */
-
-/**
- * @typedef {Object} PeriodObj
- * @property {string} start  // e.g., "2022-02"
- * @property {string} end    // e.g., "2024-07" or "Present"
- */
-
-/**
- * @typedef {Object} Project
- * @property {string} title
- * @property {string} role
- * @property {string|PeriodObj} period
- * @property {string} summary
- * @property {string[]} stack
- * @property {string[]=} highlights
- * @property {LinkRef[]=} links
- */
-
-/**
- * @typedef {Object} Experience
- * @property {string} company
- * @property {string} role
- * @property {string|PeriodObj} period
- * @property {string} location
- * @property {string[]=} bullets
- */
-
-/**
- * @typedef {Object} Education
- * @property {string} degree
- * @property {string} school
- * @property {string} period
- * @property {string} location
- */
 
 // ------------------- PROFILE -------------------
 const PROFILE = {
@@ -60,7 +23,7 @@ const PROFILE = {
   title: "Mobile Tech Lead | iOS & Flutter Specialist | Product Architect",
   location: "Islamabad, Pakistan",
   // Uses your GitHub avatar. Replace with your own image path if preferred (e.g., "/profile.jpg").
-  photoUrl: "./profile.jpg",
+  photoUrl: '${import.meta.env.BASE_URL}profile.jpg',
 };
 
 // ------------------- DATA SEEDS -------------------
