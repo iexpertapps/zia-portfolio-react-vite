@@ -23,7 +23,7 @@ const PROFILE = {
   title: "Mobile Tech Lead | iOS & Flutter Specialist | Product Architect",
   location: "Islamabad, Pakistan",
   // Uses your GitHub avatar. Replace with your own image path if preferred (e.g., "/profile.jpg").
-  photoUrl: '${import.meta.env.BASE_URL}profile.jpg',
+  photoUrl: "./profile.jpg", // Ensure this path is correct relative to your public directory
 };
 
 // ------------------- DATA SEEDS -------------------
