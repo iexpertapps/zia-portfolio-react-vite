@@ -60,7 +60,7 @@ const PROFILE = {
   title: "Mobile Tech Lead | iOS & Flutter Specialist | Product Architect",
   location: "Islamabad, Pakistan",
   // Uses your GitHub avatar. Replace with your own image path if preferred (e.g., "/profile.jpg").
-  photoUrl: "/profile.jpg",
+  photoUrl: "./profile.jpg",
 };
 
 // ------------------- DATA SEEDS -------------------
@@ -432,7 +432,7 @@ function ProfileCard() {
   return (
     <aside className="flex items-center gap-4 rounded-2xl border p-4 shadow-sm md:flex-col md:items-start">
       <img
-       src="./profile.jpg"
+       src= {PROFILE.photoUrl}
         alt={`${PROFILE.name} profile photo`}
         width={160}
         height={160}
