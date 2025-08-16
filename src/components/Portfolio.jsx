@@ -140,6 +140,50 @@ const personalProjects = [
     ],
     links: [],
   },
+  {
+  title: "KaamWalay – Job & Service Marketplace",
+  role: "Founder | System Architect | iOS & Flutter Developer",
+  period: "Jan 2023 – Jun 2024",
+  summary:
+    "Developed a mobile-first marketplace connecting job seekers, freelancers, and service providers with employers and clients. The platform streamlined onboarding, verified profiles, and secure payments for trust and transparency.",
+  stack: ["Flutter", "Laravel", "MySQL", "Stripe", "Firebase", "REST APIs"],
+  highlights: [
+    "Implemented secure user onboarding with role-based access (Employer, Worker, Admin)",
+    "Integrated Stripe & local wallets for service payments and job transactions",
+    "Developed job posting, bidding, and hiring workflows with proof-of-completion",
+    "Built real-time chat & notification system for job updates and employer-worker communication",
+    "Optimized UX for multi-language support and inclusive accessibility"
+  ],
+  links: [
+    {
+      label: "Admin Panel",
+      url: "https://kaamwalay-admin.vercel.app/login"
+    }
+  ],
+},
+{
+  title: "SkillQuest – AI-Powered Career Success Platform",
+  role: "Founder | Product Architect | iOS & AI Solutions Developer",
+  period: "Jan 2024 – Present",
+  summary:
+    "An end-to-end career acceleration platform leveraging AI for personalized skill development, interview preparation, and intelligent job matching. Designed to empower job seekers, employers, and educators with actionable insights and scalable tools.",
+  stack: ["React", "Node.js", "Python (AI/ML)", "Firebase", "OpenAI APIs", "REST APIs"],
+  highlights: [
+    "AI-driven interview preparation with personalized role-specific questions & real-time feedback",
+    "Adaptive skill assessments with dynamic quizzes and gap analysis for upskilling",
+    "Smart job matching via unified job aggregator, readiness scoring, and salary insights",
+    "Virtual mock interviews with multimodal feedback on verbal & non-verbal cues",
+    "Skill enhancement hub with curated learning paths and live expert sessions",
+    "Collaborative community features: peer networking, forums, and group mock interviews"
+  ],
+  links: [
+    {
+      label: "SkillQuest Web Platform",
+      url: "https://skillquest.ai"
+    }
+  ],
+},
+
 ];
 
 const experienceSeed = [
