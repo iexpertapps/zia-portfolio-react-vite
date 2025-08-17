@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import {
@@ -22,8 +22,7 @@ const PROFILE = {
   name: "Syed Zia ur Rehman",
   title: "Mobile Tech Lead | iOS & Flutter Specialist | Product Architect",
   location: "Islamabad, Pakistan",
-  // Uses your GitHub avatar. Replace with your own image path if preferred (e.g., "/profile.jpg").
-  photoUrl: "./profile.jpg", // Ensure this path is correct relative to your public directory
+  photoUrl: "./profile.jpg",
 };
 
 // ------------------- DATA SEEDS -------------------
@@ -271,9 +270,7 @@ const socials = [
   { label: "Phone", href: "tel:+923347134557", icon: Phone },
 ];
 
-// ------------------- HELPERS (Single-file) -------------------
-
-/** @param {string|PeriodObj} p */
+// ------------------- HELPERS -------------------
 function formatPeriod(p) {
   if (typeof p === "string") return p;
   const end = p.end === "Present" ? "Present" : ymToMonYear(p.end);
@@ -281,24 +278,31 @@ function formatPeriod(p) {
 }
 
 function ymToMonYear(ym) {
-  // "2024-07" -> "Jul 2024"
   const [y, m] = ym.split("-").map(Number);
   const d = new Date(y, (m || 1) - 1, 1);
   return d.toLocaleString(undefined, { month: "short", year: "numeric" });
 }
 
-/** Simple debounce hook */
 function useDebouncedValue(value, delayMs) {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
+  const [debounced, setDebounced] = React.useState(value);
+  React.useEffect(() => {
     const t = setTimeout(() => setDebounced(value), delayMs);
     return () => clearTimeout(t);
   }, [value, delayMs]);
   return debounced;
 }
 
-// ------------------- REUSABLE COMPONENTS -------------------
+function normalizeTag(tag) {
+  switch (tag.toLowerCase()) {
+    case "mqtt communication": return "MQTT";
+    case "websocket":
+    case "websockets": return "WebSockets";
+    case "stripe api": return "Stripe";
+    default: return tag;
+  }
+}
 
+// ------------------- REUSABLE COMPONENTS -------------------
 function Tag({ children, variant = "badge" }) {
   const styles =
     variant === "pill"
@@ -331,35 +335,29 @@ function ProjectCard({ project }) {
       className="group rounded-2xl border p-5 shadow-sm hover:shadow-md"
     >
       <div className="flex flex-col gap-3">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h3 className="text-lg font-semibold">{project.title}</h3>
-            <p className="text-sm text-muted-foreground">{project.role}</p>
-            <p className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {formatPeriod(project.period)}
-            </p>
-          </div>
+        <div>
+          <h3 className="text-lg font-semibold">{project.title}</h3>
+          <p className="text-sm text-muted-foreground">{project.role}</p>
+          <p className="flex items-center gap-1 text-xs text-muted-foreground">
+            <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {formatPeriod(project.period)}
+          </p>
         </div>
 
         <p className="text-sm leading-relaxed">{project.summary}</p>
 
-        {Array.isArray(project.stack) && project.stack.length > 0 && (
+        {!!project.stack?.length && (
           <div className="flex flex-wrap gap-2">
-            {project.stack.map((s) => (
-              <Tag key={`${project.title}-${s}`}>{s}</Tag>
-            ))}
+            {project.stack.map((s) => <Tag key={`${project.title}-${s}`}>{s}</Tag>)}
           </div>
         )}
 
-        {Array.isArray(project.highlights) && project.highlights.length > 0 && (
+        {!!project.highlights?.length && (
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
-            {project.highlights.map((h, i) => (
-              <li key={`${project.title}-hl-${i}`}>{h}</li>
-            ))}
+            {project.highlights.map((h, i) => <li key={`${project.title}-hl-${i}`}>{h}</li>)}
           </ul>
         )}
 
-        {Array.isArray(project.links) && project.links.length > 0 && (
+        {!!project.links?.length && (
           <div className="mt-2 flex flex-wrap gap-2">
             {project.links.map((l, i) => (
               <a
@@ -369,7 +367,6 @@ function ProjectCard({ project }) {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs hover:bg-muted"
                 aria-label={`${project.title} – ${l.label}`}
-                title={l.label}
               >
                 <LinkIcon className="h-3.5 w-3.5" aria-hidden="true" />
                 {l.label}
@@ -382,7 +379,6 @@ function ProjectCard({ project }) {
   );
 }
 
-/** Small helper for empty search states */
 function EmptyState() {
   return (
     <div className="rounded-xl border p-6 text-sm text-muted-foreground">
@@ -395,7 +391,7 @@ function ProfileCard() {
   return (
     <aside className="flex items-center gap-4 rounded-2xl border p-4 shadow-sm md:flex-col md:items-start">
       <img
-       src= {PROFILE.photoUrl}
+        src={PROFILE.photoUrl}
         alt={`${PROFILE.name} profile photo`}
         width={160}
         height={160}
@@ -419,10 +415,9 @@ function ProfileCard() {
                 key={`profile-social-${s.label}`}
                 href={s.href}
                 target="_blank"
-                rel="me noopener noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 rounded-xl border px-2 py-1 text-xs hover:bg-muted"
                 aria-label={s.label}
-                title={s.label}
               >
                 <Icon className="h-4 w-4" aria-hidden="true" /> {s.label}
               </a>
@@ -435,40 +430,26 @@ function ProfileCard() {
 }
 
 // ------------------- MAIN COMPONENT -------------------
-
 export default function Portfolio() {
   const [search, setSearch] = useState("");
   const query = useDebouncedValue(search, 300);
   const [tag, setTag] = useState("All");
- const normalizeTag = (tag) => {
-  switch (tag.toLowerCase()) {
-    case "mqtt communication":
-      return "MQTT";
-    case "websocket":
-    case "websockets":
-      return "WebSockets";
-    case "stripe api":
-      return "Stripe";
-    default:
-      return tag;
-  }
-};
- const allTags = useMemo(() => {
-  const s = new Set(["All"]);
-  [...projectsSeed, ...personalProjects].forEach((p) =>
-    p.stack.forEach((t) => s.add(normalizeTag(t)))
-  );
-  return Array.from(s);
-}, []);
 
+  const allTags = useMemo(() => {
+    const s = new Set(["All"]);
+    [...projectsSeed, ...personalProjects].forEach((p) =>
+      p.stack.forEach((t) => s.add(normalizeTag(t)))
+    );
+    return Array.from(s);
+  }, []);
 
   const mkFilter = (list) => {
     const q = query.trim().toLowerCase();
     return list.filter((p) => {
-      const matchesTag = tag === "All" || p.stack.includes(tag);
-      const haystack = `${p.title} ${p.summary} ${p.role} ${p.stack.join(" ")}`.toLowerCase();
-      const matchesQuery = !q || haystack.includes(q);
-      return matchesTag && matchesQuery;
+      const normalizedStack = p.stack.map(normalizeTag);
+      const matchesTag = tag === "All" || normalizedStack.includes(tag);
+      const haystack = `${p.title} ${p.summary} ${p.role} ${normalizedStack.join(" ")}`.toLowerCase();
+      return matchesTag && (!q || haystack.includes(q));
     });
   };
 
@@ -485,12 +466,10 @@ export default function Portfolio() {
         />
         <link rel="preload" as="image" href={PROFILE.photoUrl} />
         <style>{`html { scroll-behavior: smooth; }`}</style>
-        {/* Basic OG/Twitter */}
         <meta property="og:title" content={`${PROFILE.name} – Portfolio`} />
         <meta property="og:description" content="iOS & Flutter Specialist. Smart IoT, real-time, fintech." />
         <meta property="og:image" content={PROFILE.photoUrl} />
         <meta name="twitter:card" content="summary_large_image" />
-        {/* JSON-LD Person schema */}
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'Person',
@@ -502,12 +481,10 @@ export default function Portfolio() {
         })}</script>
       </Helmet>
 
-      {/* Skip link for accessibility */}
       <a href="#home" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground">
         Skip to content
       </a>
 
-      {/* HEADER */}
       <header className="sticky top-0 z-40 border-b backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <a href="#home" className="font-semibold tracking-tight">{PROFILE.name}</a>
@@ -522,8 +499,8 @@ export default function Portfolio() {
         </div>
       </header>
 
-      {/* HERO */}
       <main id="home" className="mx-auto max-w-6xl px-4">
+        {/* HERO */}
         <section className="grid gap-8 py-14 md:grid-cols-[1.2fr_.8fr] md:items-start">
           <div>
             <motion.h1
@@ -557,12 +534,10 @@ export default function Portfolio() {
               <Tag variant="pill">Remote-friendly</Tag>
             </div>
           </div>
-
-          {/* Profile Picture + quick actions */}
           <ProfileCard />
         </section>
 
-        {/* FILTER BAR (shared) */}
+        {/* FILTER BAR */}
         <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-2 rounded-xl border px-3 py-2">
             <Search className="h-4 w-4" aria-hidden="true" />
@@ -592,30 +567,26 @@ export default function Portfolio() {
         {/* PROJECTS */}
         <Section id="projects" title="Projects" icon={Rocket}>
           <div className="grid gap-6 md:grid-cols-2">
-            {filteredProjects.length > 0 ? (
-              filteredProjects.map((p) => <ProjectCard key={`proj-${p.title}`} project={p} />)
-            ) : (
-              <EmptyState />)
-            }
+            {filteredProjects.length > 0
+              ? filteredProjects.map((p) => <ProjectCard key={`proj-${p.title}`} project={p} />)
+              : <EmptyState />}
           </div>
         </Section>
 
         {/* PERSONAL PROJECTS */}
-        <Section id="personal-projects" title="Personal Projects" icon={Rocket}>
+        <Section id="personal-projects" title="Personal Projects" icon={Rocket} className="mt-8">
           <div className="grid gap-6 md:grid-cols-2">
-            {filteredPersonal.length > 0 ? (
-              filteredPersonal.map((p) => <ProjectCard key={`pers-${p.title}`} project={p} />)
-            ) : (
-              <EmptyState />)
-            }
+            {filteredPersonal.length > 0
+              ? filteredPersonal.map((p) => <ProjectCard key={`pers-${p.title}`} project={p} />)
+              : <EmptyState />}
           </div>
         </Section>
 
         {/* EXPERIENCE */}
-        <Section id="experience" title="Experience" icon={Briefcase}>
+        <Section id="experience" title="Experience" icon={Briefcase} className="mt-8">
           {experienceSeed.map((exp, i) => (
             <motion.div
-              key={`exp-${exp.company}-${exp.role}-${i}`}
+              key={`exp-${exp.company}-${i}`}
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -629,11 +600,9 @@ export default function Portfolio() {
               <p className="flex items-center gap-1 text-xs text-muted-foreground">
                 <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {formatPeriod(exp.period)}
               </p>
-              {exp.bullets?.length > 0 && (
+              {!!exp.bullets?.length && (
                 <ul className="mt-2 list-disc pl-5 text-sm">
-                  {exp.bullets.map((b, j) => (
-                    <li key={`exp-${i}-b-${j}`}>{b}</li>
-                  ))}
+                  {exp.bullets.map((b, j) => <li key={`exp-${i}-b-${j}`}>{b}</li>)}
                 </ul>
               )}
             </motion.div>
@@ -641,15 +610,13 @@ export default function Portfolio() {
         </Section>
 
         {/* SKILLS */}
-        <Section id="skills" title="Technical Skills" icon={Star}>
+        <Section id="skills" title="Technical Skills" icon={Star} className="mt-8">
           <div className="grid gap-4 md:grid-cols-2">
             {Object.entries(skillsSeed).map(([key, val]) => (
               <div key={`skill-${key}`}>
                 <h4 className="text-sm font-medium capitalize">{key.replace(/([A-Z])/g, " $1")}</h4>
                 <div className="mt-1 flex flex-wrap gap-2">
-                  {val.map((s, i) => (
-                    <Tag key={`skill-${key}-${i}`}>{s}</Tag>
-                  ))}
+                  {val.map((s, i) => <Tag key={`skill-${key}-${i}`}>{s}</Tag>)}
                 </div>
               </div>
             ))}
@@ -657,7 +624,7 @@ export default function Portfolio() {
         </Section>
 
         {/* EDUCATION */}
-        <Section id="education" title="Education" icon={GraduationCap}>
+        <Section id="education" title="Education" icon={GraduationCap} className="mt-8">
           {educationSeed.map((edu, i) => (
             <motion.div
               key={`edu-${i}`}
@@ -677,7 +644,7 @@ export default function Portfolio() {
         </Section>
 
         {/* CONTACT */}
-        <Section id="contact" title="Contact" icon={Mail}>
+        <Section id="contact" title="Contact" icon={Mail} className="mt-8">
           <div className="flex flex-col gap-3">
             {socials.map((s) => {
               const Icon = s.icon;
@@ -686,10 +653,9 @@ export default function Portfolio() {
                   key={`social-${s.label}`}
                   href={s.href}
                   target="_blank"
-                  rel="me noopener noreferrer"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-muted"
                   aria-label={s.label}
-                  title={s.label}
                 >
                   <Icon className="h-5 w-5" aria-hidden="true" /> {s.label}
                 </a>
