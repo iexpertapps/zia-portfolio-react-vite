@@ -440,12 +440,27 @@ export default function Portfolio() {
   const [search, setSearch] = useState("");
   const query = useDebouncedValue(search, 300);
   const [tag, setTag] = useState("All");
+ const normalizeTag = (tag) => {
+  switch (tag.toLowerCase()) {
+    case "mqtt communication":
+      return "MQTT";
+    case "websocket":
+    case "websockets":
+      return "WebSockets";
+    case "stripe api":
+      return "Stripe";
+    default:
+      return tag;
+  }
+};
+ const allTags = useMemo(() => {
+  const s = new Set(["All"]);
+  [...projectsSeed, ...personalProjects].forEach((p) =>
+    p.stack.forEach((t) => s.add(normalizeTag(t)))
+  );
+  return Array.from(s);
+}, []);
 
-  const allTags = useMemo(() => {
-    const s = new Set(["All"]);
-    [...projectsSeed, ...personalProjects].forEach((p) => p.stack.forEach((t) => s.add(t)));
-    return Array.from(s);
-  }, []);
 
   const mkFilter = (list) => {
     const q = query.trim().toLowerCase();
