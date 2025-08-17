@@ -277,13 +277,6 @@ const testimonialsSeed = [
       "Professional, proactive, and always delivering top-quality work. He uplifted our mobile app strategy completely.",
     avatar: "https://i.pravatar.cc/100?img=2",
   },
-  {
-    name: "Michael Brown",
-    role: "CTO, StartupX",
-    feedback:
-      "From architecture to execution, Zia handled our iOS project flawlessly. Highly recommended.",
-    avatar: "https://i.pravatar.cc/100?img=3",
-  },
 ];
 
 const socials = [
