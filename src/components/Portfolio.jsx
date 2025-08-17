@@ -262,6 +262,29 @@ const skillsSeed = {
     "Trauma-aware and spiritually conscious design",
   ],
 };
+const testimonialsSeed = [
+  {
+    name: "Waqar Ahmad Khattak",
+    role: "Founder & CEO @ Alright Tech",
+    feedback:
+      "Mr. Zia worked with us on the development of our iOS app. I was impressed by professionalism and dedication to his work. His deep knowledge of Swift, SwiftUI, and Objective-C helped us build an app that was not only functional but also beautifully designed. He expertly managed the entire process from development to launch. His ability to integrate AI features into the app added incredible value, taking the user experience to the next level. Zia is a true professional, delivering on time and exceeding expectations. I highly recommend him to anyone looking for a skilled iOS app developer",
+    avatar: "https://media.licdn.com/dms/image/v2/D4D03AQFJbpTIRGlIvA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1730109330335?e=1758153600&v=beta&t=yZP2PR7A2um5FvMKISRL4XnqnaLVHwVhndFQihu6Xm0",
+  },
+  {
+    name: "Ayesha Khan",
+    role: "Project Manager, Alright Tech",
+    feedback:
+      "Professional, proactive, and always delivering top-quality work. He uplifted our mobile app strategy completely.",
+    avatar: "https://i.pravatar.cc/100?img=2",
+  },
+  {
+    name: "Michael Brown",
+    role: "CTO, StartupX",
+    feedback:
+      "From architecture to execution, Zia handled our iOS project flawlessly. Highly recommended.",
+    avatar: "https://i.pravatar.cc/100?img=3",
+  },
+];
 
 const socials = [
   { label: "GitHub", href: "https://github.com/iexpertapps", icon: Github },
@@ -426,6 +449,33 @@ function ProfileCard() {
         </div>
       </div>
     </aside>
+  );
+}
+
+function TestimonialCard({ testimonial }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.3 }}
+      className="rounded-2xl border p-5 shadow-sm bg-background"
+    >
+      <div className="flex items-center gap-4 mb-3">
+        <img
+          src={testimonial.avatar}
+          alt={`${testimonial.name} avatar`}
+          className="h-12 w-12 rounded-full object-cover"
+        />
+        <div>
+          <p className="font-semibold">{testimonial.name}</p>
+          <p className="text-xs text-muted-foreground">{testimonial.role}</p>
+        </div>
+      </div>
+      <p className="text-sm text-muted-foreground leading-relaxed">
+        “{testimonial.feedback}”
+      </p>
+    </motion.div>
   );
 }
 
@@ -607,6 +657,15 @@ export default function Portfolio() {
               )}
             </motion.div>
           ))}
+        </Section>
+
+        {/* TESTIMONIALS */}
+        <Section id="testimonials" title="Testimonials" icon={Star} className="mt-16">
+          <div className="grid gap-6 md:grid-cols-2">
+            {testimonialsSeed.map((t, i) => (
+              <TestimonialCard key={`testimonial-${i}`} testimonial={t} />
+            ))}
+          </div>
         </Section>
 
         {/* SKILLS */}
