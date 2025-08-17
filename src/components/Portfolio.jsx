@@ -16,6 +16,7 @@ import {
   MapPin,
 } from "lucide-react";
 
+export const PLACEHOLDER_LOGO = "/logos/placeholder.svg";
 
 // ------------------- PROFILE -------------------
 const PROFILE = {
@@ -48,6 +49,7 @@ const projectsSeed = [
     links: [
       { label: "Tuya SDK Docs", url: "https://platform.tuya.com/oem/sdk?id=644256001&tab=1#1" }
     ],
+    logo: "https://airtake-private-data-1254153901.cos.accelerate.myqcloud.com/smart/app/package/bay1753937201097Rbo7/17546665502da494bccf3.pngicon_1754666553159.png?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDcFk7OYhieTBkBTdgcQ6f6KXZSCjbSAlI%26q-sign-time%3D1755424991%3B1755428591%26q-key-time%3D1755424991%3B1755428591%26q-header-list%3Dhost%26q-url-param-list%3D%26q-signature%3Da05f1d70a05c492f2f6ff255ec514443f049f2b3&imageMogr2/thumbnail/96x96&quot"
   },
   {
     title: "Cielo Home – Smart IoT HVAC Control",
@@ -66,6 +68,7 @@ const projectsSeed = [
     links: [
       { label: "App Store", url: "https://apps.apple.com/us/app/cielo-home/id1030282555" }
     ],
+    logo: "https://cielowigle.com/wp-content/uploads/2023/02/cielo-breez-official-logo-latest.png"
   },
   {
     title: "XP Eats – Food Delivery & Donation Platform",
@@ -84,6 +87,7 @@ const projectsSeed = [
     links: [
       { label: "App Store", url: "https://apps.apple.com/ca/app/xp-eats/id1498829228" }
     ],
+    logo: "https://www.xpeats.com/img/logo-dark.png"
   },
   {
     title: "XP Driver – Driver App for XP Eats Platform",
@@ -102,6 +106,7 @@ const projectsSeed = [
     links: [
       { label: "App Store", url: "https://apps.apple.com/ca/app/xp-driver/id1439220195" }
     ],
+    logo: "https://play-lh.googleusercontent.com/cBZ1cLAuMhKqhH8JvbF7DjQ_PgU927BXJxHCZepCzqkZHnq88lWMPbX5DaY97y9dZl0=w240-h480"
   },
 ];
 
@@ -120,6 +125,7 @@ const personalProjects = [
       "Fully documented SDLC: SRS, user flows, API specs, layered backend, DevOps pipelines",
     ],
     links: [{ label: "Mawaddah Admin Panel", url: "https://mawaddahapp.vercel.app/login" }],
+    logo: "https://mawaddahapp.vercel.app/ic_mawaddah_180x180.png"
   },
   {
     title: "QuietHelp – Mental Health App",
@@ -351,28 +357,45 @@ function ProjectCard({ project }) {
       className="group rounded-2xl border p-5 shadow-sm hover:shadow-md"
     >
       <div className="flex flex-col gap-3">
-        <div>
-          <h3 className="text-lg font-semibold">{project.title}</h3>
-          <p className="text-sm text-muted-foreground">{project.role}</p>
-          <p className="flex items-center gap-1 text-xs text-muted-foreground">
-            <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {formatPeriod(project.period)}
-          </p>
+        {/* Logo + Title */}
+        <div className="flex items-start gap-3">
+          <img
+            src={project.logo || PLACEHOLDER_LOGO}
+            alt={`${project.title} logo`}
+            className="h-10 w-10 rounded object-contain bg-gray-100"
+            loading="lazy"
+          />
+          <div>
+            <h3 className="text-lg font-semibold">{project.title}</h3>
+            <p className="text-sm text-muted-foreground">{project.role}</p>
+            <p className="flex items-center gap-1 text-xs text-muted-foreground">
+              <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {formatPeriod(project.period)}
+            </p>
+          </div>
         </div>
 
+        {/* Summary */}
         <p className="text-sm leading-relaxed">{project.summary}</p>
 
+        {/* Stack */}
         {!!project.stack?.length && (
           <div className="flex flex-wrap gap-2">
-            {project.stack.map((s) => <Tag key={`${project.title}-${s}`}>{s}</Tag>)}
+            {project.stack.map((s) => (
+              <Tag key={`${project.title}-${s}`}>{s}</Tag>
+            ))}
           </div>
         )}
 
+        {/* Highlights */}
         {!!project.highlights?.length && (
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
-            {project.highlights.map((h, i) => <li key={`${project.title}-hl-${i}`}>{h}</li>)}
+            {project.highlights.map((h, i) => (
+              <li key={`${project.title}-hl-${i}`}>{h}</li>
+            ))}
           </ul>
         )}
 
+        {/* Links */}
         {!!project.links?.length && (
           <div className="mt-2 flex flex-wrap gap-2">
             {project.links.map((l, i) => (
