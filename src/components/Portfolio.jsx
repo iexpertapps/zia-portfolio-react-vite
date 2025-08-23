@@ -559,6 +559,7 @@ export default function Portfolio() {
             <a href="#personal-projects" className="hover:underline underline-offset-4">Personal Projects</a>
             <a href="#experience" className="hover:underline underline-offset-4">Experience</a>
             <a href="#skills" className="hover:underline underline-offset-4">Skills</a>
+            <a href="#blog" className="hover:underline underline-offset-4">Blog</a>
             <a href="#education" className="hover:underline underline-offset-4">Education</a>
             <a href="#contact" className="hover:underline underline-offset-4">Contact</a>
           </nav>
@@ -698,6 +699,10 @@ export default function Portfolio() {
           </div>
         </Section>
 
+        {/* BLOG SECTION */}
+        <Section id="blog" title="Swift Learning Blog" icon={Star} className="mt-16">
+          <Blog />
+        </Section>
         {/* EDUCATION */}
         <Section id="education" title="Education" icon={GraduationCap} className="mt-8">
           {educationSeed.map((edu, i) => (
