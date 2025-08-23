@@ -9,9 +9,7 @@ export default function App() {
       <Portfolio />
 
       {/* Blog Section */}
-      <section className="mt-16">
-        <Blog />
-      </section>
+     <Blog />
     </div>
   );
 }
