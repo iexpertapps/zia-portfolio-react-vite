@@ -15,7 +15,7 @@ import {
   Search,
   MapPin,
 } from "lucide-react";
-
+import Blog from "./Blog";
 export const PLACEHOLDER_LOGO = "/logos/placeholder.svg";
 
 // ------------------- PROFILE -------------------
