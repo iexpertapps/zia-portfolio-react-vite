@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { client } from "../lib/sanity"
 import { PortableText } from "@portabletext/react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowLeft, ArrowUp } from "lucide-react"
+import { X } from "lucide-react"
 
 const query = `*[_type == "post"] | order(_createdAt desc){
   _id,
@@ -14,34 +14,10 @@ const query = `*[_type == "post"] | order(_createdAt desc){
 export default function Blog() {
   const [posts, setPosts] = useState([])
   const [selected, setSelected] = useState(null)
-  const [showScrollTop, setShowScrollTop] = useState(false)
 
   useEffect(() => {
     client.fetch(query).then(setPosts)
   }, [])
-
-  useEffect(() => {
-    if (selected) {
-      window.scrollTo({ top: 0, behavior: "smooth" })
-    }
-  }, [selected])
-
-  // Show scroll-to-top button on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setShowScrollTop(true)
-      } else {
-        setShowScrollTop(false)
-      }
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
 
   return (
     <div className="text-left relative">
@@ -72,23 +48,6 @@ export default function Blog() {
                 </p>
               </motion.div>
             ))}
-
-            {/* Scroll-to-Top Button (List View Only) */}
-            <AnimatePresence>
-              {showScrollTop && (
-                <motion.button
-                  onClick={scrollToTop}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="fixed bottom-6 right-6 p-4 rounded-full bg-green-600 text-white shadow-lg hover:bg-green-700 z-50"
-                >
-                  <ArrowUp className="w-6 h-6" />
-                </motion.button>
-              )}
-            </AnimatePresence>
           </motion.div>
         ) : (
           // Blog Detail
@@ -98,7 +57,16 @@ export default function Blog() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
+            className="relative"
           >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelected(null)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
             <h2 className="text-3xl font-bold mb-6">{selected.title}</h2>
             <motion.div
               initial={{ opacity: 0 }}
@@ -108,20 +76,9 @@ export default function Blog() {
             >
               <PortableText value={selected.content} />
             </motion.div>
-
-            {/* Floating Back Button */}
-            <motion.button
-              onClick={() => setSelected(null)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="fixed bottom-6 right-6 p-4 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 z-50"
-            >
-              <ArrowLeft className="w-6 h-6" />
-            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   )
 }
-
