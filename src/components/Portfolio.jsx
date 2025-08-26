@@ -700,7 +700,12 @@ export default function Portfolio() {
         </Section>
 
         {/* BLOG SECTION */}
-        <Section id="blog" title="Swift Learning Blog" icon={Star} className="mt-16">
+        <Section
+          id="blog"
+          title="Swift Learning Blog"
+          icon={Star}
+          className="mt-16 text-left"
+        >
           <Blog />
         </Section>
         {/* EDUCATION */}
