@@ -1,15 +1,17 @@
-import React from "react";
-import Portfolio from "./components/Portfolio.jsx";
-import Blog from "./components/Blog";
+// src/App.jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import BlogList from "./pages/BlogList";
+import BlogDetail from "./pages/BlogDetail";
+import Home from "./pages/Home";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Portfolio Section */}
-      <Portfolio />
-
-      {/* Blog Section */}
-     <Blog />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/blog" element={<BlogList />} />
+        <Route path="/blog/:slug" element={<BlogDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

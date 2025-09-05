@@ -255,13 +255,13 @@ const educationSeed = [
 ];
 
 const skillsSeed = {
-  languages: ["Swift", "Dart", "Python", "TypeScript", "JavaScript"],
-  frameworks: ["SwiftUI", "UIKit", "Flutter", "Django REST", "React"],
+  languages: ["Swift",  "Objective-C", "Dart"],
+  frameworks: ["SwiftUI", "UIKit", "Flutter"],
   communication: ["MQTT", "BLE", "WebSockets", "Firebase", "REST APIs"],
   devTools: ["Xcode", "VS Code", "Android Studio", "Git", "Postman"],
   infrastructure: ["Docker", "Railway", "Vercel", "Firebase Console", "AWS IoT Core"],
   databases: ["PostgreSQL", "Firestore", "SQLite"],
-  architecture: ["Clean Architecture", "Riverpod", "Modular Design", "RBAC"],
+  architecture: ["Clean Architecture", "MVC","MVVM", "Modular Design"],
   uxPrinciples: [
     "Accessibility-first",
     "Multilingual support",
@@ -700,14 +700,15 @@ export default function Portfolio() {
         </Section>
 
         {/* BLOG SECTION */}
-        <Section
+        {/* <Section
           id="blog"
           title="Swift Learning Blog"
           icon={Star}
           className="mt-16 text-left"
         >
           <Blog />
-        </Section>
+        </Section> */}
+     
         {/* EDUCATION */}
         <Section id="education" title="Education" icon={GraduationCap} className="mt-8">
           {educationSeed.map((edu, i) => (
