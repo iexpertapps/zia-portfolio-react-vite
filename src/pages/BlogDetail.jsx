@@ -1,7 +1,7 @@
 // src/pages/BlogDetail.jsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { client } from "../sanityClient";
+import { client } from "../lib/sanity";
 
 export default function BlogDetail() {
   const { slug } = useParams();

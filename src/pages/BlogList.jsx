@@ -1,7 +1,7 @@
 // src/pages/BlogList.jsx
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { client } from "../sanityClient"; // tumhara Sanity client config
+import { client } from "../lib/sanity";
 
 export default function BlogList() {
   const [blogs, setBlogs] = useState([]);
