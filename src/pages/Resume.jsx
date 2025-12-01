@@ -230,9 +230,6 @@ export default function Resume() {
                   <Printer className="h-5 w-5" aria-hidden="true" />
                   Print / Save as PDF
                 </button>
-                <p className="text-xs text-muted-foreground mt-1 hidden sm:block">
-                  Opens print dialog
-                </p>
               </div>
               <Link
                 to="/"
