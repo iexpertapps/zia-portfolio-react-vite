@@ -80,23 +80,27 @@ html { scroll-behavior: smooth; }
   }
 
   h2 {
-    font-size: 16pt !important;
+    font-size: 12pt !important;
     font-weight: bold !important;
     color: #000 !important;
-    margin-top: 1.2rem !important;
-    margin-bottom: 0.75rem !important;
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
     page-break-after: avoid;
-    border-bottom: 1px solid #ccc !important;
+    border-bottom: 2px solid #666 !important;
     padding-bottom: 0.25rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5pt !important;
   }
 
   h3 {
-    font-size: 13pt !important;
-    font-weight: 600 !important;
+    font-size: 10pt !important;
+    font-weight: bold !important;
     color: #000 !important;
-    margin-top: 0.75rem !important;
+    margin-top: 0.5rem !important;
     margin-bottom: 0.25rem !important;
     page-break-after: avoid;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3pt !important;
   }
 
   h4, h5, h6 {
@@ -109,7 +113,8 @@ html { scroll-behavior: smooth; }
   /* Prevent page breaks inside sections */
   section {
     page-break-inside: avoid;
-    margin-bottom: 1rem !important;
+    margin-bottom: 0.75rem !important;
+    margin-top: 0.5rem !important;
   }
 
   /* Professional Summary section */
@@ -119,32 +124,34 @@ html { scroll-behavior: smooth; }
 
   /* Experience entries */
   .border-l-4 {
-    border-left-width: 3px !important;
-    border-left-color: #2563eb !important;
-    padding-left: 1rem !important;
-    margin-bottom: 1rem !important;
+    border-left-width: 2px !important;
+    border-left-color: #666 !important;
+    padding-left: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
     page-break-inside: avoid;
   }
 
   /* Bullet points */
   ul {
-    margin-top: 0.5rem !important;
+    margin-top: 0.25rem !important;
     margin-bottom: 0.5rem !important;
-    padding-left: 1.25rem !important;
+    padding-left: 0.75rem !important;
   }
 
   li {
-    margin-bottom: 0.25rem !important;
-    line-height: 1.4 !important;
+    margin-bottom: 0.2rem !important;
+    line-height: 1.35 !important;
     color: #000 !important;
+    font-size: 10pt !important;
   }
 
   /* Paragraphs */
   p {
-    margin-top: 0.5rem !important;
+    margin-top: 0.25rem !important;
     margin-bottom: 0.5rem !important;
     color: #000 !important;
-    line-height: 1.5 !important;
+    line-height: 1.4 !important;
+    font-size: 10pt !important;
   }
 
   /* Contact Information */
@@ -192,23 +199,27 @@ html { scroll-behavior: smooth; }
 
   /* Optimize spacing for print */
   .space-y-6 > * + * {
-    margin-top: 0.75rem !important;
+    margin-top: 0.5rem !important;
   }
 
   .space-y-4 > * + * {
-    margin-top: 0.5rem !important;
+    margin-top: 0.4rem !important;
   }
 
   .space-y-3 > * + * {
-    margin-top: 0.5rem !important;
+    margin-top: 0.35rem !important;
+  }
+
+  .space-y-2 > * + * {
+    margin-top: 0.3rem !important;
   }
 
   .space-y-1 > * + * {
-    margin-top: 0.2rem !important;
+    margin-top: 0.15rem !important;
   }
 
   .space-y-0\.5 > * + * {
-    margin-top: 0.15rem !important;
+    margin-top: 0.1rem !important;
   }
 
   /* Remove icons in print */
