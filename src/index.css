@@ -32,6 +32,11 @@ html { scroll-behavior: smooth; }
     -webkit-print-color-adjust: exact;
   }
 
+  /* Ensure resume content is the focus when printing */
+  html, body {
+    background: white !important;
+  }
+
   /* Hide non-essential elements */
   .print\\:hidden {
     display: none !important;

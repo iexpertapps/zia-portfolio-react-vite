@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
-import { Download, Mail, Phone, MapPin, Github, Linkedin, Briefcase, GraduationCap, Star, Loader2 } from "lucide-react";
+import { Download, Mail, Phone, MapPin, Github, Linkedin, Briefcase, GraduationCap, Star, Loader2, FileText, Printer } from "lucide-react";
 import { PROFILE, experienceSeed, educationSeed, skillsSeed, socials } from "../data/portfolioData";
 import { Link, useNavigate } from "react-router-dom";
 import { trackResumeDownload, trackPageView, trackContactClick } from "../utils/analytics";
@@ -74,6 +74,13 @@ export default function Resume() {
     trackContactClick(method.toLowerCase());
   };
 
+  const handlePrintPDF = () => {
+    // Track the print action
+    trackResumeDownload('print');
+    // Trigger browser print dialog (users can save as PDF)
+    window.print();
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground print:bg-white">
       <Helmet>
@@ -141,7 +148,7 @@ export default function Resume() {
               </div>
             </motion.div>
 
-            {/* Primary CTA - Download Button */}
+            {/* Primary CTA - Download Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -169,7 +176,7 @@ export default function Resume() {
                   ) : (
                     <>
                       <Download className="h-5 w-5" aria-hidden="true" />
-                      Get My Resume Now
+                      Download Resume PDF
                     </>
                   )}
                 </a>
@@ -178,6 +185,20 @@ export default function Resume() {
                     {downloadError}
                   </p>
                 )}
+              </div>
+              <div className="flex flex-col items-center">
+                <button
+                  onClick={handlePrintPDF}
+                  aria-label="Print or save resume page as PDF"
+                  className="inline-flex items-center gap-2 rounded-lg border border-primary bg-background px-6 py-3 text-base font-semibold text-primary hover:bg-primary/10 transition-colors shadow-sm"
+                  title="Opens print dialog - choose 'Save as PDF' to download"
+                >
+                  <Printer className="h-5 w-5" aria-hidden="true" />
+                  Print / Save as PDF
+                </button>
+                <p className="text-xs text-muted-foreground mt-1 hidden sm:block">
+                  Opens print dialog
+                </p>
               </div>
               <Link
                 to="/"
@@ -401,7 +422,7 @@ export default function Resume() {
                 ) : (
                   <>
                     <Download className="h-5 w-5" aria-hidden="true" />
-                    Download Full Resume (PDF)
+                    Download Resume PDF
                   </>
                 )}
               </a>
@@ -411,6 +432,15 @@ export default function Resume() {
                 </p>
               )}
             </div>
+            <button
+              onClick={handlePrintPDF}
+              aria-label="Print or save resume page as PDF"
+              className="inline-flex items-center gap-2 rounded-lg border border-primary bg-background px-6 py-3 text-base font-semibold text-primary hover:bg-primary/10 transition-colors"
+              title="Opens print dialog - choose 'Save as PDF' to download"
+            >
+              <Printer className="h-5 w-5" aria-hidden="true" />
+              Print / Save as PDF
+            </button>
             <button
               onClick={handleContactClick}
               aria-label="Navigate to contact section"
