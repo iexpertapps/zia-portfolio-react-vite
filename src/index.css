@@ -23,18 +23,27 @@ html { scroll-behavior: smooth; }
 /* Print styles for Resume page */
 @media print {
   @page {
-    margin: 1cm;
+    margin: 0.75cm;
     size: A4;
   }
 
-  body {
+  * {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+  }
+
+  body {
+    background: white !important;
+    color: #000 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
   }
 
   /* Ensure resume content is the focus when printing */
   html, body {
     background: white !important;
+    margin: 0;
+    padding: 0;
   }
 
   /* Hide non-essential elements */
@@ -48,13 +57,13 @@ html { scroll-behavior: smooth; }
   }
 
   .print\\:px-8 {
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
   }
 
   .print\\:py-8 {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
   }
 
   .print\\:bg-white {
@@ -62,23 +71,89 @@ html { scroll-behavior: smooth; }
   }
 
   /* Optimize text for print */
-  h1, h2, h3, h4, h5, h6 {
-    page-break-after: avoid;
+  h1 {
+    font-size: 24pt !important;
+    font-weight: bold !important;
     color: #000 !important;
+    margin-bottom: 0.5rem !important;
+    page-break-after: avoid;
+  }
+
+  h2 {
+    font-size: 16pt !important;
+    font-weight: bold !important;
+    color: #000 !important;
+    margin-top: 1.2rem !important;
+    margin-bottom: 0.75rem !important;
+    page-break-after: avoid;
+    border-bottom: 1px solid #ccc !important;
+    padding-bottom: 0.25rem !important;
+  }
+
+  h3 {
+    font-size: 13pt !important;
+    font-weight: 600 !important;
+    color: #000 !important;
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.25rem !important;
+    page-break-after: avoid;
+  }
+
+  h4, h5, h6 {
+    font-size: 11pt !important;
+    font-weight: 600 !important;
+    color: #000 !important;
+    page-break-after: avoid;
   }
 
   /* Prevent page breaks inside sections */
   section {
     page-break-inside: avoid;
+    margin-bottom: 1rem !important;
   }
 
-  /* Ensure contact info prints well */
+  /* Professional Summary section */
+  section:first-of-type {
+    margin-top: 0 !important;
+  }
+
+  /* Experience entries */
+  .border-l-4 {
+    border-left-width: 3px !important;
+    border-left-color: #2563eb !important;
+    padding-left: 1rem !important;
+    margin-bottom: 1rem !important;
+    page-break-inside: avoid;
+  }
+
+  /* Bullet points */
+  ul {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    padding-left: 1.25rem !important;
+  }
+
+  li {
+    margin-bottom: 0.25rem !important;
+    line-height: 1.4 !important;
+    color: #000 !important;
+  }
+
+  /* Paragraphs */
+  p {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+    color: #000 !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Contact Information */
   .print\\:text-sm {
-    font-size: 0.875rem !important;
+    font-size: 10pt !important;
   }
 
   .print\\:text-lg {
-    font-size: 1.125rem !important;
+    font-size: 12pt !important;
   }
 
   .print\\:mb-2 {
@@ -86,20 +161,32 @@ html { scroll-behavior: smooth; }
   }
 
   .print\\:mb-8 {
-    margin-bottom: 2rem !important;
+    margin-bottom: 1.5rem !important;
   }
 
   .print\\:pt-4 {
-    padding-top: 1rem !important;
+    padding-top: 0.75rem !important;
   }
 
   .print\\:border-t-0 {
     border-top: none !important;
   }
 
-  /* Ensure borders print */
-  .border-l-4 {
-    border-left-width: 4px !important;
+  /* Skills section */
+  .grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Skill tags */
+  .rounded-full, .rounded-xl {
+    border: 1px solid #ccc !important;
+    background: transparent !important;
+    padding: 0.2rem 0.5rem !important;
+    margin: 0.15rem !important;
+    font-size: 9pt !important;
+    display: inline-block !important;
   }
 
   /* Optimize spacing for print */
@@ -107,14 +194,61 @@ html { scroll-behavior: smooth; }
     margin-top: 1rem !important;
   }
 
+  .space-y-4 > * + * {
+    margin-top: 0.75rem !important;
+  }
+
+  .space-y-1 > * + * {
+    margin-top: 0.25rem !important;
+  }
+
+  /* Remove icons in print */
+  svg, [aria-hidden="true"] {
+    display: none !important;
+  }
+
   /* Ensure links don't show URLs */
   a[href]:after {
     content: none !important;
   }
 
-  /* Remove shadows and gradients for print */
+  a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+
+  /* Remove shadows, gradients, and animations */
   * {
     box-shadow: none !important;
     text-shadow: none !important;
+    background-image: none !important;
+  }
+
+  /* Remove motion animations */
+  [class*="motion"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Ensure proper spacing between experience entries */
+  .space-y-6 > div {
+    margin-bottom: 1rem !important;
+  }
+
+  /* Company and location styling */
+  .text-muted-foreground {
+    color: #333 !important;
+  }
+
+  /* Period/date styling */
+  .text-sm {
+    font-size: 10pt !important;
+    color: #666 !important;
+  }
+
+  /* Main container */
+  main {
+    max-width: 100% !important;
+    padding: 1rem !important;
   }
 }
