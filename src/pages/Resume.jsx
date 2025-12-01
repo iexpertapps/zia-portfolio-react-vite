@@ -273,9 +273,9 @@ export default function Resume() {
       </section>
 
       {/* Resume Content */}
-      <main className="mx-auto max-w-4xl px-4 py-12 print:max-w-full print:px-4 print:py-3">
+      <main className="mx-auto max-w-4xl px-4 py-12 print:max-w-full print:px-4 print:py-2">
         {/* Header for Print */}
-        <div className="print:mb-4 print:pb-3 print:border-b-2 print:border-gray-500">
+        <div className="print:mb-2 print:pb-2 print:border-b-2 print:border-gray-500">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight print:text-2xl print:mb-1 print:font-bold print:leading-tight">
             {PROFILE.name}
           </h1>
@@ -302,9 +302,9 @@ export default function Resume() {
         </div>
 
         {/* Summary */}
-        <section className="mb-12 print:mb-3 print:mt-2">
-          <h2 className="text-2xl font-bold mb-4 print:mb-1 print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-2 print:border-gray-500 print:pb-0.5 print:mt-2">PROFESSIONAL SUMMARY</h2>
-          <p className="text-muted-foreground leading-relaxed print:text-black print:text-xs print:leading-relaxed print:mt-1.5 print:mb-0">
+        <section className="mb-12 print:mb-2 print:mt-1">
+          <h2 className="text-2xl font-bold mb-4 print:mb-1 print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-2 print:border-gray-500 print:pb-0.5 print:mt-1">PROFESSIONAL SUMMARY</h2>
+          <p className="text-muted-foreground leading-relaxed print:text-black print:text-xs print:leading-relaxed print:mt-1 print:mb-0">
             Experienced Mobile Tech Lead and iOS Specialist with over a decade of expertise in building scalable mobile applications. 
             Proven track record of delivering iOS apps that scale to 100K+ users, specializing in smart IoT ecosystems and fintech integrations. 
             Currently architecting AI-powered career platforms. Expert in turning complex technical challenges into elegant, user-focused solutions 
@@ -313,12 +313,12 @@ export default function Resume() {
         </section>
 
         {/* Experience */}
-        <section className="mb-12 print:mb-3 print:mt-2">
+        <section className="mb-12 print:mb-2 print:mt-1">
           <div className="flex items-center gap-2 mb-6 print:mb-1">
             <Briefcase className="h-5 w-5 print:hidden" aria-hidden="true" />
-            <h2 className="text-2xl font-bold print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-2 print:border-gray-500 print:pb-0.5 print:w-full print:mt-2">PROFESSIONAL EXPERIENCE</h2>
+            <h2 className="text-2xl font-bold print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-2 print:border-gray-500 print:pb-0.5 print:w-full print:mt-1">PROFESSIONAL EXPERIENCE</h2>
           </div>
-          <div className="space-y-6 print:space-y-2">
+          <div className="space-y-6 print:space-y-1.5">
             {experienceSeed && experienceSeed.length > 0 ? experienceSeed.map((exp, i) => (
               <motion.div
                 key={`exp-${exp.company}-${i}`}
@@ -329,13 +329,13 @@ export default function Resume() {
                 style={{ 
                   '@media print': { opacity: '1 !important', transform: 'none !important' }
                 }}
-                className="border-l-4 border-primary pl-6 pb-6 last:pb-0 print:border-l-2 print:border-gray-400 print:pl-3 print:pb-1.5 print:mb-1.5 print:opacity-100 print:transform-none"
+                className="border-l-4 border-primary pl-6 pb-6 last:pb-0 print:border-l-2 print:border-gray-400 print:pl-3 print:pb-1 print:mb-1 print:opacity-100 print:transform-none"
               >
                 <h3 className="text-xl font-semibold mb-1 print:text-xs print:font-bold print:mb-0.5 print:text-gray-900 print:leading-tight">{exp.role}</h3>
                 <p className="text-lg text-muted-foreground mb-1 print:text-xs print:text-gray-700 print:mb-0.5 print:font-medium print:leading-tight">
                   {exp.company} <span className="print:hidden">•</span><span className="hidden print:inline"> | </span> {exp.location}
                 </p>
-                <p className="text-sm text-muted-foreground mb-3 print:text-xs print:text-gray-600 print:mb-1 print:italic print:leading-tight">{exp.period}</p>
+                <p className="text-sm text-muted-foreground mb-3 print:text-xs print:text-gray-600 print:mb-0.5 print:italic print:leading-tight">{exp.period}</p>
                 {exp.bullets && (
                   <ul className="list-disc pl-5 space-y-1 text-sm print:pl-3 print:space-y-0.5 print:text-xs print:leading-relaxed print:mt-0.5">
                     {exp.bullets.map((bullet, j) => (
@@ -353,12 +353,12 @@ export default function Resume() {
         </section>
 
         {/* Skills */}
-        <section className="mb-12 print:mb-3 print:mt-2">
+        <section className="mb-12 print:mb-2 print:mt-1">
           <div className="flex items-center gap-2 mb-6 print:mb-1">
             <Star className="h-5 w-5 print:hidden" aria-hidden="true" />
-            <h2 className="text-2xl font-bold print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-2 print:border-gray-500 print:pb-0.5 print:w-full print:mt-2">TECHNICAL SKILLS</h2>
+            <h2 className="text-2xl font-bold print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-2 print:border-gray-500 print:pb-0.5 print:w-full print:mt-1">TECHNICAL SKILLS</h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 print:grid-cols-2 print:gap-1.5 print:mt-1.5">
+          <div className="grid gap-6 md:grid-cols-2 print:grid-cols-2 print:gap-1 print:mt-1">
             {skillsSeed && Object.keys(skillsSeed).length > 0 ? Object.entries(skillsSeed).map(([key, val]) => (
               <div key={`skill-${key}`} className="print:mb-1">
                 <h3 className="text-lg font-semibold mb-2 capitalize print:text-xs print:font-bold print:mb-0.5 print:text-gray-900 print:uppercase print:tracking-tight print:leading-tight">
@@ -384,12 +384,12 @@ export default function Resume() {
         </section>
 
         {/* Education */}
-        <section className="mb-12 print:mb-3 print:mt-2">
+        <section className="mb-12 print:mb-2 print:mt-1">
           <div className="flex items-center gap-2 mb-6 print:mb-1">
             <GraduationCap className="h-5 w-5 print:hidden" aria-hidden="true" />
-            <h2 className="text-2xl font-bold print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-2 print:border-gray-500 print:pb-0.5 print:w-full print:mt-2">EDUCATION</h2>
+            <h2 className="text-2xl font-bold print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-2 print:border-gray-500 print:pb-0.5 print:w-full print:mt-1">EDUCATION</h2>
           </div>
-          <div className="space-y-4 print:space-y-1.5 print:mt-1.5">
+          <div className="space-y-4 print:space-y-1 print:mt-1">
             {educationSeed && educationSeed.length > 0 ? educationSeed.map((edu, i) => (
               <motion.div
                 key={`edu-${i}`}
@@ -412,8 +412,8 @@ export default function Resume() {
         </section>
 
         {/* Contact Information for Recruiters */}
-        <section className="mt-12 pt-8 border-t print:border-t-2 print:border-gray-500 print:pt-2 print:mt-3 print:mb-2">
-          <h2 className="text-2xl font-bold mb-4 print:mb-1 print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-2 print:border-gray-500 print:pb-0.5 print:mt-2">CONTACT INFORMATION</h2>
+        <section className="mt-12 pt-8 border-t print:border-t-2 print:border-gray-500 print:pt-1.5 print:mt-2 print:mb-1">
+          <h2 className="text-2xl font-bold mb-4 print:mb-1 print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-2 print:border-gray-500 print:pb-0.5 print:mt-1">CONTACT INFORMATION</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid-cols-2 print:gap-x-4 print:gap-y-1 print:text-xs print:mt-2">
             <div className="flex items-center gap-3 print:block print:gap-0">
               <Mail className="h-5 w-5 text-primary print:hidden" aria-hidden="true" />

@@ -23,7 +23,7 @@ html { scroll-behavior: smooth; }
 /* Print styles for Resume page */
 @media print {
   @page {
-    margin: 0.75cm;
+    margin: 0.5cm 0.75cm;
     size: A4;
   }
 
@@ -83,11 +83,12 @@ html { scroll-behavior: smooth; }
     font-size: 12pt !important;
     font-weight: bold !important;
     color: #000 !important;
-    margin-top: 0.75rem !important;
-    margin-bottom: 0.5rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.35rem !important;
     page-break-after: avoid;
+    page-break-inside: avoid;
     border-bottom: 2px solid #666 !important;
-    padding-bottom: 0.25rem !important;
+    padding-bottom: 0.2rem !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5pt !important;
   }
@@ -110,11 +111,25 @@ html { scroll-behavior: smooth; }
     page-break-after: avoid;
   }
 
-  /* Prevent page breaks inside sections */
+  /* Optimize page breaks - allow breaks within sections but prevent orphaned headings */
   section {
+    page-break-inside: auto;
+    margin-bottom: 0.5rem !important;
+    margin-top: 0.25rem !important;
+    orphans: 3;
+    widows: 3;
+  }
+  
+  /* Prevent headings from being orphaned at bottom of page */
+  h2 {
+    page-break-after: avoid;
     page-break-inside: avoid;
-    margin-bottom: 0.75rem !important;
-    margin-top: 0.5rem !important;
+  }
+  
+  /* Allow page breaks between experience entries if needed */
+  .border-l-4 {
+    page-break-inside: auto;
+    page-break-after: auto;
   }
   
   /* Ensure sections don't create excessive spacing */
@@ -138,8 +153,10 @@ html { scroll-behavior: smooth; }
     border-left-width: 2px !important;
     border-left-color: #666 !important;
     padding-left: 0.75rem !important;
-    margin-bottom: 0.5rem !important;
-    page-break-inside: avoid;
+    margin-bottom: 0.35rem !important;
+    margin-top: 0.25rem !important;
+    page-break-inside: auto;
+    page-break-after: auto;
   }
 
   /* Bullet points */
@@ -208,21 +225,25 @@ html { scroll-behavior: smooth; }
     font-weight: normal !important;
   }
 
-  /* Optimize spacing for print */
+  /* Optimize spacing for print - tighter spacing */
   .space-y-6 > * + * {
-    margin-top: 0.5rem !important;
-  }
-
-  .space-y-4 > * + * {
     margin-top: 0.4rem !important;
   }
 
+  .space-y-4 > * + * {
+    margin-top: 0.3rem !important;
+  }
+
   .space-y-3 > * + * {
-    margin-top: 0.35rem !important;
+    margin-top: 0.25rem !important;
   }
 
   .space-y-2 > * + * {
-    margin-top: 0.3rem !important;
+    margin-top: 0.2rem !important;
+  }
+
+  .space-y-1\.5 > * + * {
+    margin-top: 0.2rem !important;
   }
 
   .space-y-1 > * + * {
