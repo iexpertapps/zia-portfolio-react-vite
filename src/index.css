@@ -116,6 +116,17 @@ html { scroll-behavior: smooth; }
     margin-bottom: 0.75rem !important;
     margin-top: 0.5rem !important;
   }
+  
+  /* Ensure sections don't create excessive spacing */
+  section:empty {
+    display: none !important;
+  }
+  
+  /* Force visibility for all content in print */
+  main > section > div {
+    display: block !important;
+    visibility: visible !important;
+  }
 
   /* Professional Summary section */
   section:first-of-type {
@@ -244,10 +255,34 @@ html { scroll-behavior: smooth; }
     background-image: none !important;
   }
 
-  /* Remove motion animations */
-  [class*="motion"] {
+  /* Remove motion animations and ensure visibility in print */
+  /* Override framer-motion inline styles */
+  [class*="motion"],
+  [data-framer-name],
+  [style*="opacity"],
+  [style*="transform"] {
     opacity: 1 !important;
     transform: none !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
+    display: block !important;
+  }
+  
+  /* Force all motion divs to be visible - override inline styles */
+  div[class*="motion"],
+  div[class*="motion"] > * {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    transform: none !important;
+    visibility: visible !important;
+    display: block !important;
+  }
+  
+  /* Specifically target experience and education motion divs */
+  section[class*="mb-12"] div[class*="motion"] {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
   }
 
   /* Ensure proper spacing between experience entries */

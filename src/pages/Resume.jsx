@@ -19,11 +19,33 @@ export default function Resume() {
   useEffect(() => {
     trackPageView('/resume');
     
+    // Force visibility for print mode - fix framer-motion whileInView issue
+    const handleBeforePrint = () => {
+      // Force all motion elements to be visible before print
+      const motionElements = document.querySelectorAll('[class*="motion"]');
+      motionElements.forEach((el) => {
+        if (el instanceof HTMLElement) {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+          el.style.visibility = 'visible';
+        }
+      });
+    };
+    
+    const handleAfterPrint = () => {
+      // Reset if needed (though print is usually one-way)
+    };
+    
+    window.addEventListener('beforeprint', handleBeforePrint);
+    window.addEventListener('afterprint', handleAfterPrint);
+    
     // Cleanup timeout on unmount
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
+      window.removeEventListener('beforeprint', handleBeforePrint);
+      window.removeEventListener('afterprint', handleAfterPrint);
     };
   }, []);
 
@@ -304,7 +326,10 @@ export default function Resume() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3 }}
-                className="border-l-4 border-primary pl-6 pb-6 last:pb-0 print:border-l-2 print:border-gray-400 print:pl-3 print:pb-1.5 print:mb-1.5"
+                style={{ 
+                  '@media print': { opacity: '1 !important', transform: 'none !important' }
+                }}
+                className="border-l-4 border-primary pl-6 pb-6 last:pb-0 print:border-l-2 print:border-gray-400 print:pl-3 print:pb-1.5 print:mb-1.5 print:opacity-100 print:transform-none"
               >
                 <h3 className="text-xl font-semibold mb-1 print:text-xs print:font-bold print:mb-0.5 print:text-gray-900 print:leading-tight">{exp.role}</h3>
                 <p className="text-lg text-muted-foreground mb-1 print:text-xs print:text-gray-700 print:mb-0.5 print:font-medium print:leading-tight">
@@ -372,7 +397,7 @@ export default function Resume() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3 }}
-                className="border-l-4 border-primary pl-6 print:border-l-2 print:border-gray-400 print:pl-3"
+                className="border-l-4 border-primary pl-6 print:border-l-2 print:border-gray-400 print:pl-3 print:opacity-100 print:transform-none"
               >
                 <h3 className="text-xl font-semibold mb-1 print:text-xs print:font-bold print:mb-0.5 print:text-gray-900 print:leading-tight">{edu.degree}</h3>
                 <p className="text-muted-foreground mb-1 print:text-xs print:text-gray-700 print:mb-0.5 print:font-medium print:leading-tight">
