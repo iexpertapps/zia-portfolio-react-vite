@@ -176,30 +176,39 @@ html { scroll-behavior: smooth; }
   .grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 1rem !important;
+    gap: 0.75rem !important;
   }
 
-  /* Skill tags */
+  /* Skill tags - display as inline text with separators */
   .rounded-full, .rounded-xl {
-    border: 1px solid #ccc !important;
+    border: none !important;
     background: transparent !important;
-    padding: 0.2rem 0.5rem !important;
-    margin: 0.15rem !important;
-    font-size: 9pt !important;
-    display: inline-block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 10pt !important;
+    display: inline !important;
+    font-weight: normal !important;
   }
 
   /* Optimize spacing for print */
   .space-y-6 > * + * {
-    margin-top: 1rem !important;
-  }
-
-  .space-y-4 > * + * {
     margin-top: 0.75rem !important;
   }
 
+  .space-y-4 > * + * {
+    margin-top: 0.5rem !important;
+  }
+
+  .space-y-3 > * + * {
+    margin-top: 0.5rem !important;
+  }
+
   .space-y-1 > * + * {
-    margin-top: 0.25rem !important;
+    margin-top: 0.2rem !important;
+  }
+
+  .space-y-0\.5 > * + * {
+    margin-top: 0.15rem !important;
   }
 
   /* Remove icons in print */
@@ -231,8 +240,15 @@ html { scroll-behavior: smooth; }
   }
 
   /* Ensure proper spacing between experience entries */
-  .space-y-6 > div {
-    margin-bottom: 1rem !important;
+  .space-y-6 > div,
+  .space-y-4 > div,
+  .space-y-3 > div {
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Remove extra padding from motion divs */
+  [class*="motion"] {
+    margin-bottom: 0.5rem !important;
   }
 
   /* Company and location styling */

@@ -239,36 +239,39 @@ export default function Resume() {
       </section>
 
       {/* Resume Content */}
-      <main className="mx-auto max-w-4xl px-4 py-12 print:max-w-full print:px-4 print:py-4">
+      <main className="mx-auto max-w-4xl px-4 py-12 print:max-w-full print:px-4 print:py-3">
         {/* Header for Print */}
-        <div className="print:mb-4 print:pb-2 print:border-b print:border-gray-300">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight print:text-2xl print:mb-1">
+        <div className="print:mb-3 print:pb-2 print:border-b print:border-gray-400">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight print:text-xl print:mb-0.5 print:font-bold">
             {PROFILE.name}
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground print:text-base print:text-gray-700 print:mb-1">
+          <p className="text-xl md:text-2xl text-muted-foreground print:text-sm print:text-gray-800 print:mb-1 print:font-medium">
             {PROFILE.title}
           </p>
-          <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground print:text-xs print:text-gray-600 print:mt-1">
+          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground print:text-xs print:text-gray-700 print:mt-1 print:leading-tight">
             <span>{PROFILE.location}</span>
+            <span className="hidden print:inline"> | </span>
             <span className="print:hidden">•</span>
-            <a href="mailto:syed.iosdeveloper@gmail.com" className="hover:text-primary print:text-gray-600 print:no-underline">
+            <a href="mailto:syed.iosdeveloper@gmail.com" className="hover:text-primary print:text-gray-700 print:no-underline">
               syed.iosdeveloper@gmail.com
             </a>
+            <span className="hidden print:inline"> | </span>
             <span className="print:hidden">•</span>
-            <a href="tel:+923347134557" className="hover:text-primary print:text-gray-600 print:no-underline">
+            <a href="tel:+923347134557" className="hover:text-primary print:text-gray-700 print:no-underline">
               +92 334 713 4557
             </a>
+            <span className="hidden print:inline"> | </span>
             <span className="print:hidden">•</span>
-            <a href="https://www.linkedin.com/in/syed-zia-ur-rehman12/" target="_blank" rel="noopener noreferrer" className="hover:text-primary print:text-gray-600 print:no-underline">
+            <a href="https://www.linkedin.com/in/syed-zia-ur-rehman12/" target="_blank" rel="noopener noreferrer" className="hover:text-primary print:text-gray-700 print:no-underline">
               linkedin.com/in/syed-zia-ur-rehman12
             </a>
           </div>
         </div>
 
         {/* Summary */}
-        <section className="mb-12 print:mb-6 print:mt-4">
-          <h2 className="text-2xl font-bold mb-4 print:mb-2 print:text-base print:font-bold">Professional Summary</h2>
-          <p className="text-muted-foreground leading-relaxed print:text-foreground print:text-sm print:leading-normal">
+        <section className="mb-12 print:mb-4 print:mt-3">
+          <h2 className="text-2xl font-bold mb-4 print:mb-1.5 print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b print:border-gray-300 print:pb-1">Professional Summary</h2>
+          <p className="text-muted-foreground leading-relaxed print:text-black print:text-xs print:leading-relaxed print:mt-2">
             Experienced Mobile Tech Lead and iOS Specialist with over a decade of expertise in building scalable mobile applications. 
             Proven track record of delivering iOS apps that scale to 100K+ users, specializing in smart IoT ecosystems and fintech integrations. 
             Currently architecting AI-powered career platforms. Expert in turning complex technical challenges into elegant, user-focused solutions 
@@ -277,12 +280,12 @@ export default function Resume() {
         </section>
 
         {/* Experience */}
-        <section className="mb-12 print:mb-6">
-          <div className="flex items-center gap-2 mb-6 print:mb-3">
+        <section className="mb-12 print:mb-4">
+          <div className="flex items-center gap-2 mb-6 print:mb-2">
             <Briefcase className="h-5 w-5 print:hidden" aria-hidden="true" />
-            <h2 className="text-2xl font-bold print:text-base print:font-bold print:mb-2">Professional Experience</h2>
+            <h2 className="text-2xl font-bold print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b print:border-gray-300 print:pb-1 print:w-full">Professional Experience</h2>
           </div>
-          <div className="space-y-6 print:space-y-4">
+          <div className="space-y-6 print:space-y-3">
             {experienceSeed.map((exp, i) => (
               <motion.div
                 key={`exp-${exp.company}-${i}`}
@@ -290,17 +293,17 @@ export default function Resume() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3 }}
-                className="border-l-4 border-primary pl-6 pb-6 last:pb-0 print:border-l-2 print:pl-4 print:pb-3 print:mb-3"
+                className="border-l-4 border-primary pl-6 pb-6 last:pb-0 print:border-l-2 print:border-gray-400 print:pl-3 print:pb-2 print:mb-2"
               >
-                <h3 className="text-xl font-semibold mb-1 print:text-sm print:font-semibold print:mb-0.5">{exp.role}</h3>
-                <p className="text-lg text-muted-foreground mb-1 print:text-xs print:text-gray-700 print:mb-0.5">
-                  {exp.company} • {exp.location}
+                <h3 className="text-xl font-semibold mb-1 print:text-xs print:font-bold print:mb-0.5 print:text-gray-900">{exp.role}</h3>
+                <p className="text-lg text-muted-foreground mb-1 print:text-xs print:text-gray-700 print:mb-0.5 print:font-medium">
+                  {exp.company} <span className="print:hidden">•</span><span className="hidden print:inline"> | </span> {exp.location}
                 </p>
-                <p className="text-sm text-muted-foreground mb-3 print:text-xs print:text-gray-600 print:mb-2">{exp.period}</p>
+                <p className="text-sm text-muted-foreground mb-3 print:text-xs print:text-gray-600 print:mb-1.5 print:italic">{exp.period}</p>
                 {exp.bullets && (
-                  <ul className="list-disc pl-5 space-y-1 text-sm print:pl-4 print:space-y-0.5 print:text-xs print:leading-relaxed">
+                  <ul className="list-disc pl-5 space-y-1 text-sm print:pl-3 print:space-y-0.5 print:text-xs print:leading-relaxed print:mt-1">
                     {exp.bullets.map((bullet, j) => (
-                      <li key={`exp-${i}-bullet-${j}`} className="text-muted-foreground print:text-gray-700 print:mb-0.5">
+                      <li key={`exp-${i}-bullet-${j}`} className="text-muted-foreground print:text-gray-800 print:mb-0.5">
                         {bullet}
                       </li>
                     ))}
@@ -312,24 +315,24 @@ export default function Resume() {
         </section>
 
         {/* Skills */}
-        <section className="mb-12 print:mb-6">
-          <div className="flex items-center gap-2 mb-6 print:mb-3">
+        <section className="mb-12 print:mb-4">
+          <div className="flex items-center gap-2 mb-6 print:mb-2">
             <Star className="h-5 w-5 print:hidden" aria-hidden="true" />
-            <h2 className="text-2xl font-bold print:text-base print:font-bold print:mb-2">Technical Skills</h2>
+            <h2 className="text-2xl font-bold print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b print:border-gray-300 print:pb-1 print:w-full">Technical Skills</h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 print:grid-cols-2 print:gap-3">
+          <div className="grid gap-6 md:grid-cols-2 print:grid-cols-2 print:gap-2 print:mt-2">
             {Object.entries(skillsSeed).map(([key, val]) => (
-              <div key={`skill-${key}`} className="print:mb-2">
-                <h3 className="text-lg font-semibold mb-2 capitalize print:text-xs print:font-semibold print:mb-1 print:text-gray-900">
+              <div key={`skill-${key}`} className="print:mb-1.5">
+                <h3 className="text-lg font-semibold mb-2 capitalize print:text-xs print:font-semibold print:mb-0.5 print:text-gray-900 print:uppercase print:tracking-tight">
                   {key.replace(/([A-Z])/g, " $1").trim()}
                 </h3>
-                <div className="flex flex-wrap gap-2 print:gap-1">
+                <div className="flex flex-wrap gap-2 print:block print:gap-0">
                   {val.map((skill, i) => (
                     <span
                       key={`skill-${key}-${i}`}
-                      className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium print:px-2 print:py-0.5 print:text-xs print:border-gray-400 print:bg-transparent"
+                      className="inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium print:inline print:px-0 print:py-0 print:text-xs print:border-0 print:bg-transparent print:font-normal"
                     >
-                      {skill}
+                      {skill}{i < val.length - 1 && <span className="hidden print:inline">, </span>}
                     </span>
                   ))}
                 </div>
@@ -339,12 +342,12 @@ export default function Resume() {
         </section>
 
         {/* Education */}
-        <section className="mb-12 print:mb-6">
-          <div className="flex items-center gap-2 mb-6 print:mb-3">
+        <section className="mb-12 print:mb-4">
+          <div className="flex items-center gap-2 mb-6 print:mb-2">
             <GraduationCap className="h-5 w-5 print:hidden" aria-hidden="true" />
-            <h2 className="text-2xl font-bold print:text-base print:font-bold print:mb-2">Education</h2>
+            <h2 className="text-2xl font-bold print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b print:border-gray-300 print:pb-1 print:w-full">Education</h2>
           </div>
-          <div className="space-y-4 print:space-y-2">
+          <div className="space-y-4 print:space-y-2 print:mt-2">
             {educationSeed.map((edu, i) => (
               <motion.div
                 key={`edu-${i}`}
@@ -352,64 +355,64 @@ export default function Resume() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3 }}
-                className="border-l-4 border-primary pl-6 print:border-l-2 print:pl-4"
+                className="border-l-4 border-primary pl-6 print:border-l-2 print:border-gray-400 print:pl-3"
               >
-                <h3 className="text-xl font-semibold mb-1 print:text-sm print:font-semibold print:mb-0.5">{edu.degree}</h3>
-                <p className="text-muted-foreground mb-1 print:text-xs print:text-gray-700 print:mb-0.5">
-                  {edu.school} • {edu.location}
+                <h3 className="text-xl font-semibold mb-1 print:text-xs print:font-bold print:mb-0.5 print:text-gray-900">{edu.degree}</h3>
+                <p className="text-muted-foreground mb-1 print:text-xs print:text-gray-700 print:mb-0.5 print:font-medium">
+                  {edu.school} <span className="print:hidden">•</span><span className="hidden print:inline"> | </span> {edu.location}
                 </p>
-                <p className="text-sm text-muted-foreground print:text-xs print:text-gray-600">{edu.period}</p>
+                <p className="text-sm text-muted-foreground print:text-xs print:text-gray-600 print:italic">{edu.period}</p>
               </motion.div>
             ))}
           </div>
         </section>
 
         {/* Contact Information for Recruiters */}
-        <section className="mt-12 pt-8 border-t print:border-t print:border-gray-300 print:pt-3 print:mt-6 print:mb-4">
-          <h2 className="text-2xl font-bold mb-4 print:mb-2 print:text-base print:font-bold">Contact Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid-cols-2 print:gap-2 print:text-xs">
-            <div className="flex items-center gap-3 print:gap-2">
+        <section className="mt-12 pt-8 border-t print:border-t print:border-gray-400 print:pt-2 print:mt-4 print:mb-2">
+          <h2 className="text-2xl font-bold mb-4 print:mb-1.5 print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b print:border-gray-300 print:pb-1">Contact Information</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid-cols-2 print:gap-x-4 print:gap-y-1 print:text-xs print:mt-2">
+            <div className="flex items-center gap-3 print:block print:gap-0">
               <Mail className="h-5 w-5 text-primary print:hidden" aria-hidden="true" />
               <div>
-                <p className="text-xs text-muted-foreground print:text-gray-600 print:font-medium print:mb-0.5">Email</p>
+                <p className="text-xs text-muted-foreground print:text-gray-600 print:font-semibold print:mb-0.5 print:uppercase print:text-xs">Email</p>
                 <a 
                   href="mailto:syed.iosdeveloper@gmail.com" 
-                  className="text-foreground hover:text-primary hover:underline transition-colors print:text-xs print:text-gray-900 print:no-underline"
+                  className="text-foreground hover:text-primary hover:underline transition-colors print:text-xs print:text-gray-900 print:no-underline print:font-normal"
                   onClick={() => handleSocialClick('email')}
                 >
                   syed.iosdeveloper@gmail.com
                 </a>
               </div>
             </div>
-            <div className="flex items-center gap-3 print:gap-2">
+            <div className="flex items-center gap-3 print:block print:gap-0">
               <Phone className="h-5 w-5 text-primary print:hidden" aria-hidden="true" />
               <div>
-                <p className="text-xs text-muted-foreground print:text-gray-600 print:font-medium print:mb-0.5">Phone</p>
+                <p className="text-xs text-muted-foreground print:text-gray-600 print:font-semibold print:mb-0.5 print:uppercase print:text-xs">Phone</p>
                 <a 
                   href="tel:+923347134557" 
-                  className="text-foreground hover:text-primary hover:underline transition-colors print:text-xs print:text-gray-900 print:no-underline"
+                  className="text-foreground hover:text-primary hover:underline transition-colors print:text-xs print:text-gray-900 print:no-underline print:font-normal"
                   onClick={() => handleSocialClick('phone')}
                 >
                   +92 334 713 4557
                 </a>
               </div>
             </div>
-            <div className="flex items-center gap-3 print:gap-2">
+            <div className="flex items-center gap-3 print:block print:gap-0">
               <MapPin className="h-5 w-5 text-primary print:hidden" aria-hidden="true" />
               <div>
-                <p className="text-xs text-muted-foreground print:text-gray-600 print:font-medium print:mb-0.5">Location</p>
-                <p className="text-foreground print:text-xs print:text-gray-900">{PROFILE.location}</p>
+                <p className="text-xs text-muted-foreground print:text-gray-600 print:font-semibold print:mb-0.5 print:uppercase print:text-xs">Location</p>
+                <p className="text-foreground print:text-xs print:text-gray-900 print:font-normal">{PROFILE.location}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 print:gap-2">
+            <div className="flex items-center gap-3 print:block print:gap-0">
               <Linkedin className="h-5 w-5 text-primary print:hidden" aria-hidden="true" />
               <div>
-                <p className="text-xs text-muted-foreground print:text-gray-600 print:font-medium print:mb-0.5">LinkedIn</p>
+                <p className="text-xs text-muted-foreground print:text-gray-600 print:font-semibold print:mb-0.5 print:uppercase print:text-xs">LinkedIn</p>
                 <a 
                   href="https://www.linkedin.com/in/syed-zia-ur-rehman12/" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground hover:text-primary hover:underline transition-colors print:text-xs print:text-gray-900 print:no-underline"
+                  className="text-foreground hover:text-primary hover:underline transition-colors print:text-xs print:text-gray-900 print:no-underline print:font-normal"
                   onClick={() => handleSocialClick('linkedin')}
                 >
                   linkedin.com/in/syed-zia-ur-rehman12
