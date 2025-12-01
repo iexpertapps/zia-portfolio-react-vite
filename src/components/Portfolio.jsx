@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   Github,
   Linkedin,
@@ -19,15 +20,9 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-export const PLACEHOLDER_LOGO = "/logos/placeholder.svg";
+import { PROFILE, experienceSeed, educationSeed, skillsSeed, socials } from "../data/portfolioData";
 
-// ------------------- PROFILE -------------------
-const PROFILE = {
-  name: "Syed Zia ur Rehman",
-  title: "Mobile Tech Lead | iOS & Flutter Specialist | Product Architect",
-  location: "Islamabad, Pakistan",
-  photoUrl: "./profile.jpg",
-};
+export const PLACEHOLDER_LOGO = "/logos/placeholder.svg";
 
 // ------------------- DATA SEEDS -------------------
 
@@ -286,98 +281,6 @@ const personalProjects = [
 ];
 
 
-/** @type {Experience[]} */
-const experienceSeed = [
-  {
-    company: "iExpert Apps",
-    role: "Senior iOS Developer",
-    period: "Mar 2024 – Dec 2024 (10 months)",
-    location: "Islāmābād, Pakistan",
-    bullets: [
-      "Founded and led iExpert Apps, delivering multiple iOS solutions for clients",
-      "Developed apps using Swift, SwiftUI, and Flutter with backend integrations",
-      "Mentored junior developers and managed complete SDLC from concept to deployment",
-    ],
-  },
-  {
-    company: "Alright Tech Private Limited",
-    role: "Senior Information Technology Project Manager",
-    period: "Aug 2024 – Nov 2024 (4 months)",
-    location: "Rawalpindi, Punjab, Pakistan",
-    bullets: [
-      "Delivered high-performance E-Commerce app and Fleet Management System",
-      "Coordinated cross-functional teams; reduced delays by 15%",
-      "Implemented Agile/Scrum for CRM and PMS solutions; +20% team productivity",
-      "Mentored junior developers and project managers",
-      "Automated CI/CD pipelines reducing build times by 40%",
-      "Implemented data encryption and secure storage (GDPR/HIPAA compliance)",
-      "Integrated Firebase Analytics and ran A/B tests (+15% conversions, +20% retention)",
-    ],
-  },
-  {
-    company: "Cielo WiGle Inc.",
-    role: "Senior iOS Developer",
-    period: "Feb 2022 – Jul 2024 (2 years 6 months)",
-    location: "Islamabad, Pakistan",
-    bullets: [
-      "Developed and maintained Cielo Home App (⭐ 4.7 rating, 100K+ downloads)",
-      "Implemented BLE + Wi-Fi device pairing for smart HVAC IoT devices",
-      "Built geofencing, scheduling, and intelligent triggers for energy efficiency",
-      "Integrated Siri Shortcuts, Alexa, Google Home & SmartThings",
-      "Optimized app performance, reducing load time by ~30%",
-      "Migrated away from social logins, ensuring GDPR-compliant authentication",
-    ],
-  },
-  {
-    company: "CILE",
-    role: "Senior iOS Developer",
-    period: "Feb 2021 – Jun 2024 (3 years 5 months)",
-    location: "Islamabad, Pakistan",
-    bullets: [
-      "Led development of scalable iOS apps with MVVM architecture",
-      "Integrated complex third-party APIs to enhance product features",
-      "Collaborated with UI/UX designers to deliver modern and user-friendly experiences",
-      "Mentored junior developers to improve coding practices and delivery timelines",
-    ],
-  },
-  {
-    company: "WelldoneApp",
-    role: "iPhone App Developer",
-    period: "Apr 2011 – Apr 2014 (3 years 1 month)",
-    location: "Islamabad, Pakistan",
-    bullets: [
-      "Developed multiple custom iOS apps from scratch for client projects",
-      "Integrated Twilio for phone verification and Stripe for secure payments",
-      "Implemented real-time messaging with WebSocket and GPS-based features",
-      "Collaborated with teams to deliver full software lifecycle projects on time",
-    ],
-  },
-];
-
-/** @type {Education[]} */
-const educationSeed = [
-  {
-    degree: "Bachelor of Science - BS Software Engineering, Computer Science",
-    school: "Bahria University",
-    period: "2011 – 2015",
-    location: "Islamabad, Pakistan",
-  },
-];
-
-const skillsSeed = {
-  languages: ["Swift",  "Objective-C", "Dart"],
-  frameworks: ["SwiftUI", "UIKit", "Flutter"],
-  communication: ["MQTT", "BLE", "WebSockets", "Firebase", "REST APIs"],
-  devTools: ["Xcode", "VS Code", "Android Studio", "Git", "Postman"],
-  infrastructure: ["Docker", "Railway", "Vercel", "Firebase Console", "AWS IoT Core"],
-  databases: ["PostgreSQL", "Firestore", "SQLite"],
-  architecture: ["Clean Architecture", "MVC","MVVM", "Modular Design"],
-  uxPrinciples: [
-    "Accessibility-first",
-    "Multilingual support",
-    "Trauma-aware and spiritually conscious design",
-  ],
-};
 const testimonialsSeed = [
   {
     name: "Waqar Ahmad Khattak",
@@ -395,14 +298,8 @@ const testimonialsSeed = [
   },
 ];
 
-const socials = [
-  { label: "GitHub", href: "https://github.com/iexpertapps", icon: Github },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/syed-zia-ur-rehman12/", icon: Linkedin },
-  { label: "Email", href: "mailto:syed.iosdeveloper@gmail.com", icon: Mail },
-  { label: "Phone", href: "tel:+923347134557", icon: Phone },
-];
-
 // ------------------- HELPERS -------------------
+// Use shared formatPeriod function, but keep local helper for projects
 function formatPeriod(p) {
   if (typeof p === "string") return p;
   const end = p.end === "Present" ? "Present" : ymToMonYear(p.end);
@@ -613,7 +510,7 @@ function ProfileCard() {
         </p>
         <div className="mt-2 flex flex-wrap gap-2">
           {socials.map((s) => {
-            const Icon = s.icon;
+            const IconComponent = s.icon === "Github" ? Github : s.icon === "Linkedin" ? Linkedin : s.icon === "Mail" ? Mail : Phone;
             return (
               <a
                 key={`profile-social-${s.label}`}
@@ -623,7 +520,7 @@ function ProfileCard() {
                 className="inline-flex items-center gap-1 rounded-lg border px-2 py-1 text-xs hover:bg-muted"
                 aria-label={s.label}
               >
-                <Icon className="h-4 w-4" aria-hidden="true" /> {s.label}
+                <IconComponent className="h-4 w-4" aria-hidden="true" /> {s.label}
               </a>
             );
           })}
@@ -745,6 +642,7 @@ export default function Portfolio() {
               <div className="h-4 w-px bg-border" aria-hidden="true"></div>
               <a href="#skills" className="hover:underline underline-offset-4" onClick={() => setMobileMenuOpen(false)}>About</a>
             </div>
+            <Link to="/resume" className="hover:underline underline-offset-4" onClick={() => setMobileMenuOpen(false)}>Resume</Link>
             <a href="#contact" className="hover:underline underline-offset-4 font-medium" onClick={() => setMobileMenuOpen(false)}>Contact</a>
           </nav>
 
@@ -799,6 +697,15 @@ export default function Portfolio() {
                       Education
                     </a>
                   </div>
+                </div>
+                <div className="mb-3">
+                  <Link 
+                    to="/resume" 
+                    className="px-3 py-2 rounded-lg hover:bg-muted text-sm transition-colors block"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Resume
+                  </Link>
                 </div>
                 <div>
                   <a 
@@ -982,7 +889,7 @@ export default function Portfolio() {
         <Section id="contact" title="Contact" icon={Mail}>
           <div className="flex flex-col gap-3">
             {socials.map((s) => {
-              const Icon = s.icon;
+              const IconComponent = s.icon === "Github" ? Github : s.icon === "Linkedin" ? Linkedin : s.icon === "Mail" ? Mail : Phone;
               return (
                 <a
                   key={`social-${s.label}`}
@@ -992,7 +899,7 @@ export default function Portfolio() {
                   className="flex items-center gap-2 rounded-lg border px-4 py-2 hover:bg-muted"
                   aria-label={s.label}
                 >
-                  <Icon className="h-5 w-5" aria-hidden="true" /> {s.label}
+                  <IconComponent className="h-5 w-5" aria-hidden="true" /> {s.label}
                 </a>
               );
             })}

@@ -6,3 +6,85 @@
 * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 ::selection { background: rgba(99, 102, 241, .2); }
 html { scroll-behavior: smooth; }
+
+/* Screen reader only utility (if not provided by Tailwind) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Print styles for Resume page */
+@media print {
+  @page {
+    margin: 1cm;
+    size: A4;
+  }
+
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Hide non-essential elements */
+  .print\\:hidden {
+    display: none !important;
+  }
+
+  /* Ensure full width for print */
+  .print\\:max-w-full {
+    max-width: 100% !important;
+  }
+
+  .print\\:px-8 {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+
+  .print\\:py-8 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .print\\:bg-white {
+    background: white !important;
+  }
+
+  /* Optimize text for print */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    color: #000 !important;
+  }
+
+  /* Prevent page breaks inside sections */
+  section {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure borders print */
+  .border-l-4 {
+    border-left-width: 4px !important;
+  }
+
+  /* Optimize spacing for print */
+  .space-y-6 > * + * {
+    margin-top: 1rem !important;
+  }
+
+  /* Ensure links don't show URLs */
+  a[href]:after {
+    content: none !important;
+  }
+
+  /* Remove shadows and gradients for print */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
