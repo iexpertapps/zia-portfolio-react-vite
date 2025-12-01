@@ -67,6 +67,31 @@ html { scroll-behavior: smooth; }
     page-break-inside: avoid;
   }
 
+  /* Ensure contact info prints well */
+  .print\\:text-sm {
+    font-size: 0.875rem !important;
+  }
+
+  .print\\:text-lg {
+    font-size: 1.125rem !important;
+  }
+
+  .print\\:mb-2 {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .print\\:mb-8 {
+    margin-bottom: 2rem !important;
+  }
+
+  .print\\:pt-4 {
+    padding-top: 1rem !important;
+  }
+
+  .print\\:border-t-0 {
+    border-top: none !important;
+  }
+
   /* Ensure borders print */
   .border-l-4 {
     border-left-width: 4px !important;

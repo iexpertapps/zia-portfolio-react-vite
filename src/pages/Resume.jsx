@@ -77,13 +77,16 @@ export default function Resume() {
   return (
     <div className="min-h-screen bg-background text-foreground print:bg-white">
       <Helmet>
-        <title>{`${PROFILE.name} – Resume`}</title>
+        <title>{`${PROFILE.name} – Professional Resume | ${PROFILE.title}`}</title>
         <meta
           name="description"
-          content={`Resume of ${PROFILE.name} - ${PROFILE.title}. Download PDF resume or view online.`}
+          content={`Professional resume of ${PROFILE.name} - ${PROFILE.title}. ${PROFILE.location}. Download PDF resume or view online. Available for new opportunities.`}
         />
-        <meta property="og:title" content={`${PROFILE.name} – Resume`} />
-        <meta property="og:description" content={`Resume of ${PROFILE.name} - ${PROFILE.title}`} />
+        <meta name="keywords" content={`${PROFILE.name}, iOS Developer, Mobile Developer, Flutter Developer, Resume, CV, ${PROFILE.location}`} />
+        <meta property="og:title" content={`${PROFILE.name} – Professional Resume`} />
+        <meta property="og:description" content={`Professional resume of ${PROFILE.name} - ${PROFILE.title}. Available for new opportunities.`} />
+        <meta property="og:type" content="profile" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
 
       {/* Accessibility: Screen reader announcements */}
@@ -108,9 +111,33 @@ export default function Resume() {
               <p className="text-xl md:text-2xl text-muted-foreground">
                 {PROFILE.title}
               </p>
-              <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4" aria-hidden="true" />
-                <span>{PROFILE.location}</span>
+              <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" aria-hidden="true" />
+                  <span>{PROFILE.location}</span>
+                </div>
+                <span className="hidden sm:inline">•</span>
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4" aria-hidden="true" />
+                  <a 
+                    href="mailto:syed.iosdeveloper@gmail.com" 
+                    className="hover:text-primary hover:underline transition-colors"
+                    onClick={() => handleSocialClick('email')}
+                  >
+                    syed.iosdeveloper@gmail.com
+                  </a>
+                </div>
+                <span className="hidden sm:inline">•</span>
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  <a 
+                    href="tel:+923347134557" 
+                    className="hover:text-primary hover:underline transition-colors"
+                    onClick={() => handleSocialClick('phone')}
+                  >
+                    +92 334 713 4557
+                  </a>
+                </div>
               </div>
             </motion.div>
 
@@ -193,12 +220,13 @@ export default function Resume() {
       {/* Resume Content */}
       <main className="mx-auto max-w-4xl px-4 py-12 print:max-w-full print:px-8 print:py-8">
         {/* Summary */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-4">Professional Summary</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            Building iOS apps that scale to 100K+ users. Specialized in smart IoT ecosystems and fintech integrations. 
-            Currently architecting AI-powered career platforms. Over a decade of experience turning complex technical 
-            challenges into elegant, user-focused solutions.
+        <section className="mb-12 print:mb-8">
+          <h2 className="text-2xl font-bold mb-4 print:mb-2">Professional Summary</h2>
+          <p className="text-muted-foreground leading-relaxed print:text-foreground print:text-sm">
+            Experienced Mobile Tech Lead and iOS Specialist with over a decade of expertise in building scalable mobile applications. 
+            Proven track record of delivering iOS apps that scale to 100K+ users, specializing in smart IoT ecosystems and fintech integrations. 
+            Currently architecting AI-powered career platforms. Expert in turning complex technical challenges into elegant, user-focused solutions 
+            with a focus on performance, security, and user experience. Strong background in team leadership, mentoring, and end-to-end product development.
           </p>
         </section>
 
@@ -290,11 +318,66 @@ export default function Resume() {
           </div>
         </section>
 
+        {/* Contact Information for Recruiters */}
+        <section className="mt-12 pt-8 border-t print:border-t-0 print:pt-4">
+          <h2 className="text-2xl font-bold mb-4 print:mb-2 print:text-lg">Contact Information</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 print:grid-cols-2 print:gap-2 print:text-sm">
+            <div className="flex items-center gap-3">
+              <Mail className="h-5 w-5 text-primary print:h-4 print:w-4" aria-hidden="true" />
+              <div>
+                <p className="text-xs text-muted-foreground print:text-foreground print:font-medium">Email</p>
+                <a 
+                  href="mailto:syed.iosdeveloper@gmail.com" 
+                  className="text-foreground hover:text-primary hover:underline transition-colors print:text-sm"
+                  onClick={() => handleSocialClick('email')}
+                >
+                  syed.iosdeveloper@gmail.com
+                </a>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Phone className="h-5 w-5 text-primary print:h-4 print:w-4" aria-hidden="true" />
+              <div>
+                <p className="text-xs text-muted-foreground print:text-foreground print:font-medium">Phone</p>
+                <a 
+                  href="tel:+923347134557" 
+                  className="text-foreground hover:text-primary hover:underline transition-colors print:text-sm"
+                  onClick={() => handleSocialClick('phone')}
+                >
+                  +92 334 713 4557
+                </a>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <MapPin className="h-5 w-5 text-primary print:h-4 print:w-4" aria-hidden="true" />
+              <div>
+                <p className="text-xs text-muted-foreground print:text-foreground print:font-medium">Location</p>
+                <p className="text-foreground print:text-sm">{PROFILE.location}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Linkedin className="h-5 w-5 text-primary print:h-4 print:w-4" aria-hidden="true" />
+              <div>
+                <p className="text-xs text-muted-foreground print:text-foreground print:font-medium">LinkedIn</p>
+                <a 
+                  href="https://www.linkedin.com/in/syed-zia-ur-rehman12/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground hover:text-primary hover:underline transition-colors print:text-sm"
+                  onClick={() => handleSocialClick('linkedin')}
+                >
+                  linkedin.com/in/syed-zia-ur-rehman12
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Secondary CTA */}
         <section className="mt-16 pt-12 border-t text-center print:hidden">
           <h2 className="text-2xl font-bold mb-4">Ready to Build Your Next Mobile App?</h2>
-          <p className="text-muted-foreground mb-6">
-            I'm available for new opportunities. Let's discuss how I can help bring your mobile app vision to life.
+          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            I'm actively seeking new opportunities and available for immediate discussions. Let's connect to discuss how I can help bring your mobile app vision to life with scalable, high-performance solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <div className="flex flex-col items-center">
