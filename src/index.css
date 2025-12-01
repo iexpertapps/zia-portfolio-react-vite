@@ -87,7 +87,7 @@ html { scroll-behavior: smooth; }
     margin-bottom: 0.35rem !important;
     page-break-after: avoid;
     page-break-inside: avoid;
-    border-bottom: 2px solid #666 !important;
+    border-bottom: none !important;
     padding-bottom: 0.2rem !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5pt !important;
@@ -148,10 +148,10 @@ html { scroll-behavior: smooth; }
     margin-top: 0 !important;
   }
 
-  /* Experience entries */
+  /* Experience entries - hide vertical border in print */
   .border-l-4 {
-    border-left-width: 2px !important;
-    border-left-color: #666 !important;
+    border-left-width: 0 !important;
+    border-left-color: transparent !important;
     padding-left: 0.75rem !important;
     margin-bottom: 0.35rem !important;
     margin-top: 0.25rem !important;
