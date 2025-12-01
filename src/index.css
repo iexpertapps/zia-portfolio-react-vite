@@ -225,9 +225,9 @@ html { scroll-behavior: smooth; }
     font-weight: normal !important;
   }
 
-  /* Optimize spacing for print - tighter spacing */
+  /* Optimize spacing for print - slightly more space for experience entries */
   .space-y-6 > * + * {
-    margin-top: 0.4rem !important;
+    margin-top: 0.5rem !important;
   }
 
   .space-y-4 > * + * {

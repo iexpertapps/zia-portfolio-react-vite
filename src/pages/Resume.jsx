@@ -282,7 +282,7 @@ export default function Resume() {
           <p className="text-xl md:text-2xl text-muted-foreground print:text-sm print:text-gray-900 print:mb-2 print:font-normal print:leading-tight">
             {PROFILE.title}
           </p>
-          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground print:text-xs print:text-gray-900 print:leading-tight print:block print:gap-0">
+          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground print:text-xs print:text-gray-900 print:leading-tight print:flex print:gap-1">
             <span className="print:inline">{PROFILE.location}</span>
             <span className="hidden print:inline"> | </span>
             <span className="print:hidden">•</span>
@@ -294,8 +294,9 @@ export default function Resume() {
             <a href="tel:+923347134557" className="hover:text-primary print:text-gray-900 print:no-underline print:inline">
               +92 3347134557
             </a>
-            <br className="print:block hidden" />
-            <a href="https://www.linkedin.com/in/syed-zia-ur-rehman12/" target="_blank" rel="noopener noreferrer" className="hover:text-primary print:text-gray-900 print:no-underline print:inline print:block print:mt-0.5">
+            <span className="hidden print:inline"> | </span>
+            <span className="print:hidden">•</span>
+            <a href="https://www.linkedin.com/in/syed-zia-ur-rehman12/" target="_blank" rel="noopener noreferrer" className="hover:text-primary print:text-gray-900 print:no-underline print:inline">
               linkedin.com/in/syed-zia-ur-rehman12
             </a>
           </div>
@@ -318,7 +319,7 @@ export default function Resume() {
             <Briefcase className="h-5 w-5 print:hidden" aria-hidden="true" />
             <h2 className="text-2xl font-bold print:text-sm print:font-bold print:uppercase print:tracking-wide print:border-b-0 print:pb-0.5 print:w-full print:mt-1">PROFESSIONAL EXPERIENCE</h2>
           </div>
-          <div className="space-y-6 print:space-y-1.5">
+          <div className="space-y-6 print:space-y-2">
             {experienceSeed && experienceSeed.length > 0 ? experienceSeed.map((exp, i) => (
               <motion.div
                 key={`exp-${exp.company}-${i}`}
@@ -329,7 +330,7 @@ export default function Resume() {
                 style={{ 
                   '@media print': { opacity: '1 !important', transform: 'none !important' }
                 }}
-                className="border-l-4 border-primary pl-6 pb-6 last:pb-0 print:border-l-0 print:pl-3 print:pb-1 print:mb-1 print:opacity-100 print:transform-none"
+                className="border-l-4 border-primary pl-6 pb-6 last:pb-0 print:border-l-0 print:pl-3 print:pb-1.5 print:mb-1.5 print:opacity-100 print:transform-none"
               >
                 <h3 className="text-xl font-semibold mb-1 print:text-xs print:font-bold print:mb-0.5 print:text-gray-900 print:leading-tight">{exp.role}</h3>
                 <p className="text-lg text-muted-foreground mb-1 print:text-xs print:text-gray-700 print:mb-0.5 print:font-medium print:leading-tight">
